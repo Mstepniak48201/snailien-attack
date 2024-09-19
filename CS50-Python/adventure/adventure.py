@@ -23,9 +23,13 @@ class Items:
         
 
 def main():
+    inventory = {}
+    inventory["apple"] = 2
+    inventory["rope"] = 10
+    inventory["magic boots"] = 2 
     player = Player(get_name())
     print(player.name)
-
+    display_inventory(inventory, 3, 3)
 def get_name():
     return input("Enter your name: ")
 

@@ -2,7 +2,6 @@ import sys
 import time
 import random
 
-
 def main():
     gameplay()
 
