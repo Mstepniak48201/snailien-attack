@@ -1,3 +1,5 @@
+from grid import display_inventory
+
 # Create Player class.
 # Player has name, health
 class Player:

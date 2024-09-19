@@ -1,14 +1,14 @@
 import math
 
-inventory = {
-    "sword": 1,
-    "apple": 5,
-    "magic boots": 1,
-    "healing potion": 3,
-    "rope": 10
-}
-
 def main():
+    inventory = {
+        "sword": 1,
+        "apple": 5,
+        "magic boots": 1,
+        "healing potion": 3,
+        "rope": 10
+    }
+
     display_inventory(inventory, 3, 3)
 
 def display_inventory(inventory, rows, columns):

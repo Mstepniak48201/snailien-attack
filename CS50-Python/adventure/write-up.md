@@ -16,6 +16,8 @@ Methods:
 - Eat
 - Use Potion
 
+## Effects
 
+- Full Block Character: print("\u2588")
 
 

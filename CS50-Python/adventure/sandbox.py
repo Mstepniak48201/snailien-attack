@@ -1,3 +1,5 @@
+from grid import display_inventory
+
 class Player:
     def __init__(self, name):
         self.name = name
@@ -21,14 +23,13 @@ class Player:
 obtainable_items = ["sword", "magic boots", "apple", "healing potion"]
 inventory = {}
 player = Player(input("What's your name? "))
-print(player.name)
 
 def main():
     player.pick_up_item(obtainable_items, inventory)
     print(inventory)
     player.pick_up_item(obtainable_items, inventory)
     print(inventory)
-
+    display_inventory(inventory, 3, 3) 
 
 
     
