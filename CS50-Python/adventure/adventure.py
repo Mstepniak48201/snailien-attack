@@ -16,11 +16,7 @@ class Items:
         self.sword = False
         self.apple = 0
         self.magic_shoes = False
-        self.healing_potion = 0
-
-
-    
-        
+        self.healing_potion = 0    
 
 def main():
     inventory = {}
