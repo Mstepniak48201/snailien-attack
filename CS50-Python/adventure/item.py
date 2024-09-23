@@ -60,7 +60,20 @@ class Item:
         elif self.name == "sword":
             self.sprite = "\x1b[1;91m~{\x1b[1;97m=>\x1b[0m"
         elif self.name == "laser":
-            self.sprite = ""
+            self.sprite = "\x1b[1;96m]\x1b[1;93m=\x1b[1;96m¤\x1b[0m"
+        elif self.name == "healing potion":
+            self.sprite = "placeholder"
+        elif self.name == "fireball potion":
+            self.sprite = "placeholder"
+        elif self.name == "speed potion":
+            self.sprite = "placeholder"
+        elif self.name == "apple":
+            self.sprite = "placeholder"
+        elif self.name == "jetpack":
+            self.sprite = "placeholder"
+        elif self.name == "magic boots":
+            self.sprite = "placeholder"
+
                     
 """                    
 \x1b[1
@@ -69,7 +82,7 @@ class Item:
 
 ¬μ
 
-=¤
+]=¤
 
 """
 
