@@ -11,6 +11,13 @@ class Item:
         self.name = name 
 
         # Set Attributes by name
+        def particle_effect(i=0):
+            p1 = "\x1b[1;95m ٜ\x1b[0m"
+            p2 = "\x1b[1;95m٠\x1b[0m"
+            p3 = "\x1b[1;95m.\x1b[0m"
+            effect_list = [p1, p2, p3]
+
+
         if self.name == "pick":
             self.sprite = "\x1b[1;97m‾\x1b[1;91m/\x1b[1;97m¬\x1b[0m"
             self.category = "tool"
@@ -23,7 +30,7 @@ class Item:
             self.durability = 7
             self.attack_damage = random.randrange(4, 7)
         elif self.name == "apple":
-            self.sprite = "placeholder"
+            self.sprite = "🍏"
             self.category = "food"
             self.heal = 3
         elif self.name == "wrench":
@@ -32,14 +39,17 @@ class Item:
             self.repair = random.randrange(3, 7)
         elif self.name == "healing potion":
             self.sprite = "placeholder"
-            self.category = "potion"
+            self.category = "\x1b[1;97m⛣ \x1b[0m"
             self.heal = random.randrange(2, 7)
         elif self.name == "fireball potion":
-            self.sprite = "placeholder"
+            self.sprite = "\x1b[1;93m⛣ \x1b[0m"
             self.category = "potion"
             self.attack_damage = random.randrange(5, 10)
         elif self.name == "magic boots":
-            self.sprite = "placeholder"
+            shoe1 = "\x1b[1;96m▚\x1b[0m"
+            shoe2 = "\x1b[1;97m▞\x1b[0m"
+            self.sprite = "\x1b[1;96m▟\x1b[1;97m◟\x1b[0m"
+            self.animation = [f"{p1}{shoe1}",f"{p2}{shoe2}", f"{p3}" ]
             self.category = "magic"
             self.wearable = [True, "feet"]
             self.can_jump = True
@@ -50,16 +60,30 @@ class Item:
             self.category = "weapon"
             self.attack_damage = random.randrange(6, 9)
         elif self.name == "speed potion":
-            self.sprite = "placeholder"
+            self.sprite = "\x1b[1;92m⛣ \x1b[0m"
             self.category = "potion"
             self.speed = 3
         elif self.name == "jetpack":
-            self.sprite = "placeholder"
+            jtpk = "\x1b[1;97m⟃⟄\x1b[0m"
+            e1 = "\x1b[1;91m◦\x1b[0m"
+            e2 = "\x1b[1;93m◦\x1b[0m"
+            e3 = "\x1b[1;97m◦\x1b[0m"
+            self.sprite = jtpk
+            self.use_animation = [f"{jtpk}", f"{e1}{jtpk}", f"{e2}{e1}{jtpk}", f"{e3}{e2}{e1}{jtpk}", f"{e2}{e1} {jtpk}"]
             self.category = "magic"
+            self.wearable = True
             self.can_fly = True
             self.speed = 3
 
+print("\x1b[1;96m▟\x1b[1;97m◟\x1b[0m")
+print("\x1b[1;96m▚\x1b[0m")
+print("\x1b[1;97m▞\x1b[0m")
 
+"""
+ٜ٠٠.
+
+▟◟
+"""
     # Add __repr__ method. Best practices are to represent the data
     # visually as close to the way it is entered as possible
     def __repr__(self):
@@ -96,3 +120,5 @@ class Item:
             return Item("apple")
         elif level == 7:
             ...
+            
+            #⛣

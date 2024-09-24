@@ -2,6 +2,64 @@ import sys
 import time
 import random
 
+# Set Attributes by name
+"""
+steps = 10
+i = 0
+p1 = "\x1b[1;95m ٜ\x1b[0m"
+p2 = "\x1b[1;95m٠\x1b[0m"
+p3 = "\x1b[1;95m.\x1b[0m"
+effect_list = [p1, p2, p3]
+"""
+
+# Take 1st step
+# Print shoe_1
+# Print p1
+
+# Take 2nd step
+# Print shoe_2
+# Print p2
+
+# Take 3rd step
+# Print shoe_1
+# Print p3
+
+# Take 4th step
+# Print shoe_2
+#Print p1
+
+steps = 10
+
+def print_shoes(steps):
+    steps_left = int(steps)
+    particle_counter = 1
+    shoe_counter = 0
+    p1 = "\x1b[1;95m ٜ\x1b[0m"
+    p2 = "\x1b[1;95m٠\x1b[0m"
+    p3 = "\x1b[1;95m.\x1b[0m"
+    effect_list = [p1, p2, p3]
+
+    while steps_left > 0:
+        print(f"steps left: {steps_left}, particle counter; {particle_counter}, shoe counter: {shoe_counter}")
+        if particle_counter < len(effect_list):
+            particle_counter += 1
+        else:
+            particle_counter = 1
+
+        if shoe_counter < 1:
+            shoe_counter += 1
+        else:
+            shoe_counter = 0
+
+        steps_left -= 1
+    return "All done!"
+
+print("\x1b[1;95m ٜ\x1b[0m")
+print("\x1b[1;95m٠\x1b[0m")
+print("\x1b[1;95m.\x1b[0m")
+
+
+# print_shoes(steps)
 """
 # Move cursor up n lines
 def move_cursor_up(n=1):
@@ -52,7 +110,7 @@ while steps_to_take > 0:
     steps_to_take -= 1
 print("\ncomplete!")
 """
-
+"""
 # Generate random number of steps to take.
 # Once I have how many steps I want to take, I am taking n steps.
 # For every x number of steps, I want there to be a chance of an item spawning.
@@ -107,6 +165,7 @@ while steps_to_take > 0:
 
     if total_steps_taken == 80:
         sys.exit(f"\nYou picked up {items_picked_up} items!")
+"""
 
 # Print a line and then overwrite it.
 """
