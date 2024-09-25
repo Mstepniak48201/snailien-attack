@@ -75,12 +75,11 @@ class Item:
             self.can_fly = True
             self.speed = 3
 
-"""
-Animations?
-ٜ٠٠.
+# Animations?
+#  ٜ٠٠.
 
-▟◟
-"""
+# ▟◟
+
     # Add __repr__ method. Best practices are to represent the data
     # visually as close to the way it is entered as possible
     def __repr__(self):
@@ -124,7 +123,8 @@ Animations?
         elif level == 9:
             return Item("speed potion")
         elif level == 10:
-            items = ["jetpack"]
+            return Item("jetpack")
         elif level == 11:
             items = ["apple", "healing potion"]
             name = random.choice(items)
+            return Item(name)
