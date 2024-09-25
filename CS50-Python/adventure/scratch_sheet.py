@@ -2,6 +2,8 @@ import sys
 import time
 import random
 
+from item import Item
+
 # Set Attributes by name
 """
 steps = 10
@@ -54,12 +56,17 @@ def print_shoes(steps):
         steps_left -= 1
     return "All done!"
 
+
 print("\x1b[1;95m ٜ\x1b[0m")
 print("\x1b[1;95m٠\x1b[0m")
 print("\x1b[1;95m.\x1b[0m")
 
 
-# print_shoes(steps)
+# check Item.py
+new_item = Item.spawn_item()
+
+print(new_item)
+
 """
 # Move cursor up n lines
 def move_cursor_up(n=1):

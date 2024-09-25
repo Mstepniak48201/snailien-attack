@@ -75,11 +75,8 @@ class Item:
             self.can_fly = True
             self.speed = 3
 
-print("\x1b[1;96m▟\x1b[1;97m◟\x1b[0m")
-print("\x1b[1;96m▚\x1b[0m")
-print("\x1b[1;97m▞\x1b[0m")
-
 """
+Animations?
 ٜ٠٠.
 
 ▟◟
@@ -98,7 +95,7 @@ print("\x1b[1;97m▞\x1b[0m")
             return Item(name)
 
     @classmethod
-    def spawn_item(cls, level):
+    def spawn_item(cls, level=1):
         # Initial 
         if level == 1:
             items = ["sword", "pick", "apple"]
@@ -119,6 +116,16 @@ print("\x1b[1;97m▞\x1b[0m")
         elif level == 6:
             return Item("apple")
         elif level == 7:
-            ...
+            return Item("laser")
+        elif level == 8:
+            items = ["apple", "healing potion", "speed potion"]
+            name = random.choice(items)
+            return Item(name)
+        elif level == 9:
+            return Item("speed potion")
+        elif level == 10:
+            items = ["jetpack"]
+        elif level == 11:
+            items = ["apple", "healing potion"]
+            name = random.choice(items)
             
-            #⛣
