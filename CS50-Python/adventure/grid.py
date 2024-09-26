@@ -80,10 +80,13 @@ def cell_borders(border, cell_width, columns):
             print(border, end=" ")
 
 def cell_content(sublist, cell_width, columns):
+    item_list = []
     for i in range(int(columns)):
         current_item = sublist[i]
         if current_item == 0:
             current_item = " "
+        else:
+            item_list.append(current_item)
         current_item_len = len(str(current_item))
         space_around = int(cell_width - current_item_len)
         if space_around % 2 == 0:
@@ -101,6 +104,15 @@ def cell_content(sublist, cell_width, columns):
                 print(cell_item)
             else:
                 print(cell_item, end=" ")
+    return item_list 
+
+# Export this function
+def get_capacity(inventory, rows, columns):
+    total_capacity = int(rows) * int(columns)
+    full_slots = len(inventory.items())
+    empty_slots = total_capacity - full_slots
+    return empty_slots
+
 
 if __name__ == "__main__":
     main()

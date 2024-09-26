@@ -1,3 +1,4 @@
+import sys
 import random
 
 class Item:
@@ -94,7 +95,7 @@ class Item:
         return Item(name)
 
     @classmethod
-    def spawn_item(cls, level=1):
+    def generate_item(cls, level=1):
         # Initial 
         if level == 1:
             items = ["sword", "pick", "apple"]
@@ -128,3 +129,10 @@ class Item:
             items = ["apple", "healing potion"]
             name = random.choice(items)
             return Item(name)
+
+    @classmethod
+    def spawn_item(cls, total_steps_taken, item):
+        sys.stdout.write(f"\r{total_steps_taken * '_'}🌀\x1b[1;92m<\x1b[0m___{item.sprite}\x1b[?25l")
+        return item
+
+

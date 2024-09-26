@@ -1,12 +1,15 @@
 import sys
 import time
 import random
-from item import Item
+from item import Item 
+from config import INVENTORY
 
 def main():
-    gameplay()
+    print(INVENTORY)
+    test_item = Item.generate_item() 
+    print(pick_up_item(test_item, INVENTORY)) 
 
-def gameplay():
+def player_movement():
     print("\n")
     print("\n")
     steps_to_take = random.randrange(10, 26, 3)
@@ -14,26 +17,23 @@ def gameplay():
     total_steps_taken = 0
     items_picked_up = 0
     while steps_to_take > 0:
-
+        
+        # Hide cursor.
+        print("\x1b[?25l", end="")
         if steps_to_take == 1:
             steps_to_take = random.randrange(10, 26, 3)
             
-        # Hide cursor.
-        print("\x1b[?25l", end="")
         if current_steps_taken > 10 and total_steps_taken < 78:
             item_chance = [0, 0, 0, 0, 0, 0, 0, 0, True]
             if random.choice(item_chance):
                 item = Item.generate_item()
                 item_prompt = "\n Do you want to pick up the item? yes/no "
-                # Abstract into function 
-                # sys.stdout.write(f"\r{total_steps_taken * '_'}🌀\x1b[1;92m<\x1b[0m___🎁\x1b[?25l")
-                spawn_item(total_steps_taken)
+                Item.spawn_item(total_steps_taken, item)
                 player_input = prompt_player(item_prompt)
                 current_steps_taken = 0
                 if player_input == "yes":
                     items_picked_up += 1
-
-
+                    pick_up_item(item)
 
         move_player_forward(total_steps_taken)
         total_steps_taken += 1
@@ -45,10 +45,9 @@ def gameplay():
             sys.stdout.write("\x1b[?25h")
             sys.exit(f"\nYou picked up {items_picked_up} items!")
 
-def spawn_item(total_steps_taken):
-    item = Item.generate_item()
-    sys.stdout.write(f"\r{total_steps_taken * '_'}🌀\x1b[1;92m<\x1b[0m___{item.sprite}\x1b[?25l")
-
+def pick_up_item(item, inventory):
+    item_dict = item.__dict__
+    return item_dict["name"]
 
 def move_player_forward(total_steps_taken):
     sys.stdout.write(f"\r{total_steps_taken * '_'}🌀\x1b[1;92m<\x1b[0m")
@@ -78,7 +77,6 @@ def overwrite_line(text):
     sys.stdout.write("\r" + text)
     sys.stdout.flush()
     
-
 
 if __name__ == "__main__":
     main()

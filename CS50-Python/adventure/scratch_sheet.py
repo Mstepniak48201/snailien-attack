@@ -62,10 +62,6 @@ print("\x1b[1;95m٠\x1b[0m")
 print("\x1b[1;95m.\x1b[0m")
 
 
-# check Item.py
-new_item = Item.spawn_item()
-
-print(new_item)
 
 """
 # Move cursor up n lines
