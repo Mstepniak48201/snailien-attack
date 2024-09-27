@@ -1,5 +1,6 @@
 import sys
 import random
+import utils
 
 class Item:
     def __init__(self, name, strength=0):
@@ -156,3 +157,23 @@ class Item:
         return item
 
 
+    @classmethod
+    def item_decision(cls, item, inventory): 
+        can_equip = getattr(item, "can_equip", False)
+        can_consume = getattr(item, "can_consume", False)
+        if can_equip:
+            player_input = input(f"\nPress Q to equip the {item.name} to your {item.equip_location}, or E to add to inventory. ").lower()
+            utils.move_cursor_up()
+            utils.erase_line()
+        elif can_consume:
+            player_input = input(f"\nPress Spacebar to {item.consumption_type}, the {item.name} now, or E to add to inventory. ").lower()
+            utils.move_cursor_up()
+            utils.erase_line()
+
+        if player_input == "e" and len(inventory) >= 9:
+            utils.move_cursor_up()
+            utils.erase_line()
+            player_input = input(f"\nYour inventory is full! Press D to discard the {item.name}, or I to view and manage inventory. ")
+
+        utils.move_cursor_up()
+        return player_input

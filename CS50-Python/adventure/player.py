@@ -3,6 +3,3 @@ class Player:
         self.name = name
         self.sprite = "🌀\x1b[1;92m<\x1b[0m"
 
-player = Player("michael")
-
-print(player.sprite)

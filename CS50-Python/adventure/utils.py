@@ -1,14 +1,20 @@
-def insert_newlines(n):
+import sys
+import time
+
+def insert_newline(n):
     newline = "\n"
     return print(f"{(n - 1) * newline}")
 
-def move_element_forward(spaces, string, sprite, sleep)
+def move_element_forward(spaces, string, sprite, sleep):
     sys.stdout.write(f"\r{spaces * string}{sprite}")
     sys.stdout.flush() 
-    time.sleep(sleep)
+    time.sleep(float(sleep))
 
 def hide_cursor():
     print("\x1b[?25l", end="")
+
+def show_cursor():
+    sys.stdout.write("\x1b[?25h")
 
 def move_cursor_up(n=1):
     #ANSI escape code to move cursor up n lines
