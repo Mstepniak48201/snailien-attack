@@ -1,7 +1,7 @@
 import sys
 import random
 import utils
-from global import INVENTORY
+from global_vars import INVENTORY
 
 class Item:
     def __init__(self, name, strength=0):
@@ -159,7 +159,7 @@ class Item:
 
 
     @classmethod
-    def item_decision(cls, item, inventory): 
+    def item_decision(cls, item, inventory=INVENTORY): 
         can_equip = getattr(item, "can_equip", False)
         can_consume = getattr(item, "can_consume", False)
         if can_equip:
@@ -178,3 +178,7 @@ class Item:
 
         utils.move_cursor_up()
         return player_input
+
+    @classmethod
+    def add_item_to_inventory(cls, item):
+        INVENTORY.append(item)

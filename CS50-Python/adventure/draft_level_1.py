@@ -10,10 +10,10 @@ from global_vars import INVENTORY
 
 def main():
     player = Player("Michael")
-    level_one = level_1(INVENTORY, player)
+    level_one = level_1(player)
     print(INVENTORY)
 
-def level_1(inventory, player):
+def level_1(player):
     player_sprite = player.sprite
     utils.insert_newline(2)
     steps_to_take = random.randrange(10, 26, 3)
@@ -35,10 +35,10 @@ def level_1(inventory, player):
                 # Spawn item
                 item = Item.generate_item()
                 Item.spawn_item(total_steps_taken, item)
-                player_input = Item.item_decision(item, inventory)
+                player_input = Item.item_decision(item)
                 current_steps_taken = 0
                 if player_input == "e":
-                    INVENTORY.append(item)
+                    item.add_item_to_inventory(item)
 
         utils.move_element_forward(total_steps_taken, "_", player_sprite, 0.25)
         total_steps_taken += 1

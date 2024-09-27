@@ -3,7 +3,7 @@ import time
 
 def insert_newline(n):
     newline = "\n"
-    return print(f"{(n - 1) * newline}")
+    return print(f"{n * newline}")
 
 def move_element_forward(spaces, string, sprite, sleep):
     sys.stdout.write(f"\r{spaces * string}{sprite}")
