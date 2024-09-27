@@ -21,35 +21,49 @@ class Item:
 
         if self.name == "pick":
             self.sprite = "\x1b[1;97m‾\x1b[1;91m/\x1b[1;97m¬\x1b[0m"
+            self.can_equip = True
+            self.equip_location = "hand"
             self.category = "tool"
             self.durability = 6
             self.item_damage = 5
             self.attack_damage = 2
         elif self.name == "sword":
             self.sprite = "\x1b[1;91m~{\x1b[1;97m=>\x1b[0m"
+            self.can_equip = True
+            self.equip_location = "hand"
             self.category = "weapon"
             self.durability = 7
             self.attack_damage = random.randrange(4, 7)
         elif self.name == "apple":
             self.sprite = "🍏"
+            self.can_consume = True
+            self.consumption_type = "eat"
             self.category = "food"
             self.heal = 3
         elif self.name == "wrench":
             self.sprite = "\x1b[1;94m¬\x1b[1;97mμ\x1b[0m"
+            self.can_equip = True
+            self.equip_location = "hand"
             self.category = "tool"
             self.repair = random.randrange(3, 7)
         elif self.name == "healing potion":
-            self.sprite = "placeholder"
-            self.category = "\x1b[1;97m⛣ \x1b[0m"
+            self.sprite = "\x1b[1;97m⛣ \x1b[0m"
+            self.can_consume = True
+            self.consumption_type = "use"
+            self.category = "potion"            
             self.heal = random.randrange(2, 7)
         elif self.name == "fireball potion":
             self.sprite = "\x1b[1;93m⛣ \x1b[0m"
+            self.can_equip = True
+            self.equip_location = "hand"
             self.category = "potion"
             self.attack_damage = random.randrange(5, 10)
         elif self.name == "magic boots":
             shoe1 = "\x1b[1;96m▚\x1b[0m"
             shoe2 = "\x1b[1;97m▞\x1b[0m"
             self.sprite = "\x1b[1;96m▟\x1b[1;97m◟\x1b[0m"
+            self.can_equip = True
+            self.equip_location = "feet"
             self.animation = [f"{p1}{shoe1}",f"{p2}{shoe2}", f"{p3}" ]
             self.category = "magic"
             self.wearable = [True, "feet"]
@@ -58,10 +72,14 @@ class Item:
             self.speed = 2
         elif self.name == "laser":
             self.sprite = "\x1b[1;96m]\x1b[1;93m=\x1b[1;96m¤\x1b[0m"
+            self.can_equip = True
+            self.equip_location = "hand"
             self.category = "weapon"
             self.attack_damage = random.randrange(6, 9)
         elif self.name == "speed potion":
             self.sprite = "\x1b[1;92m⛣ \x1b[0m"
+            self.can_consume = True
+            self.consumption_type = "use"
             self.category = "potion"
             self.speed = 3
         elif self.name == "jetpack":
@@ -70,6 +88,8 @@ class Item:
             e2 = "\x1b[1;93m◦\x1b[0m"
             e3 = "\x1b[1;97m◦\x1b[0m"
             self.sprite = jtpk
+            self.can_equip = True
+            self.equip_location = "back"
             self.use_animation = [f"{jtpk}", f"{e1}{jtpk}", f"{e2}{e1}{jtpk}", f"{e3}{e2}{e1}{jtpk}", f"{e2}{e1} {jtpk}"]
             self.category = "magic"
             self.wearable = True

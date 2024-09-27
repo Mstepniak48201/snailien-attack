@@ -1,8 +1,18 @@
 import sys
 import time
 import random
-
 from item import Item
+
+
+def print_newlines(n):
+    newline = "!\n"
+    return print(f"{n * newline}")
+
+print("begin")
+print_newlines(3)
+print("end")
+
+
 
 # Set Attributes by name
 """
