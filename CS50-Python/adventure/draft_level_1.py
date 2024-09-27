@@ -3,7 +3,7 @@ import random
 import utils
 from player import Player
 from item import Item 
-from globals import INVENTORY
+from global_vars import INVENTORY
 
 
 # 
