@@ -1,6 +1,7 @@
 import sys
 import random
 import utils
+from global import INVENTORY
 
 class Item:
     def __init__(self, name, strength=0):

@@ -3,7 +3,10 @@ import random
 import utils
 from player import Player
 from item import Item 
-from config import INVENTORY
+from globals import INVENTORY
+
+
+# 
 
 def main():
     player = Player("Michael")
@@ -45,7 +48,6 @@ def level_1(inventory, player):
         if total_steps_taken == 80:
             utils.show_cursor()
             return True
-
 
 def pick_up_item(item):        
     item_dict = item.__dict__
