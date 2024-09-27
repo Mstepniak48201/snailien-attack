@@ -5,9 +5,6 @@ from player import Player
 from item import Item 
 from global_vars import INVENTORY
 
-
-# 
-
 def main():
     player = Player("Michael")
     level_one = level_1(player)
@@ -29,7 +26,7 @@ def level_1(player):
             steps_to_take = random.randrange(10, 26, 3)
             
         # Set level lenght and item chance of spawning
-        if current_steps_taken > 10 and total_steps_taken < 78:
+        if current_steps_taken > 10 and total_steps_taken < 76:
             item_chance = [0, 0, 0, 0, 0, 0, 0, 0, True]
             if random.choice(item_chance):
                 # Spawn item
@@ -37,6 +34,8 @@ def level_1(player):
                 Item.spawn_item(total_steps_taken, item)
                 player_input = Item.item_decision(item)
                 current_steps_taken = 0
+                if player_input == "i":
+                    inventory_grid_dict = item_and_quantity_dict()
                 if player_input == "e":
                     item.add_item_to_inventory(item)
 

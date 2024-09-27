@@ -12,6 +12,7 @@ class Item:
             self.is_broken = True
 
         self.name = name 
+        self.quantity = 1
 
         # Set Attributes by name
         def particle_effect(i=0):
@@ -23,6 +24,7 @@ class Item:
 
         if self.name == "pick":
             self.sprite = "\x1b[1;97m‾\x1b[1;91m/\x1b[1;97m¬\x1b[0m"
+            self.stackable = False
             self.can_equip = True
             self.equip_location = "hand"
             self.category = "tool"
@@ -31,6 +33,7 @@ class Item:
             self.attack_damage = 2
         elif self.name == "sword":
             self.sprite = "\x1b[1;91m~{\x1b[1;97m=>\x1b[0m"
+            self.stackable = False
             self.can_equip = True
             self.equip_location = "hand"
             self.category = "weapon"
@@ -38,24 +41,28 @@ class Item:
             self.attack_damage = random.randrange(4, 7)
         elif self.name == "apple":
             self.sprite = "🍏"
+            self.stackable = True
             self.can_consume = True
             self.consumption_type = "eat"
             self.category = "food"
             self.heal = 3
         elif self.name == "wrench":
             self.sprite = "\x1b[1;94m¬\x1b[1;97mμ\x1b[0m"
+            self.stackable = False
             self.can_equip = True
             self.equip_location = "hand"
             self.category = "tool"
             self.repair = random.randrange(3, 7)
         elif self.name == "healing potion":
             self.sprite = "\x1b[1;97m⛣ \x1b[0m"
+            self.stackable = True
             self.can_consume = True
             self.consumption_type = "use"
             self.category = "potion"            
             self.heal = random.randrange(2, 7)
         elif self.name == "fireball potion":
             self.sprite = "\x1b[1;93m⛣ \x1b[0m"
+            self.stackable = True
             self.can_equip = True
             self.equip_location = "hand"
             self.category = "potion"
@@ -64,6 +71,7 @@ class Item:
             shoe1 = "\x1b[1;96m▚\x1b[0m"
             shoe2 = "\x1b[1;97m▞\x1b[0m"
             self.sprite = "\x1b[1;96m▟\x1b[1;97m◟\x1b[0m"
+            self.stackable = False
             self.can_equip = True
             self.equip_location = "feet"
             self.animation = [f"{p1}{shoe1}",f"{p2}{shoe2}", f"{p3}" ]
@@ -74,12 +82,14 @@ class Item:
             self.speed = 2
         elif self.name == "laser":
             self.sprite = "\x1b[1;96m]\x1b[1;93m=\x1b[1;96m¤\x1b[0m"
+            self.stackable = False
             self.can_equip = True
             self.equip_location = "hand"
             self.category = "weapon"
             self.attack_damage = random.randrange(6, 9)
         elif self.name == "speed potion":
             self.sprite = "\x1b[1;92m⛣ \x1b[0m"
+            self.stackable = True
             self.can_consume = True
             self.consumption_type = "use"
             self.category = "potion"
@@ -90,6 +100,7 @@ class Item:
             e2 = "\x1b[1;93m◦\x1b[0m"
             e3 = "\x1b[1;97m◦\x1b[0m"
             self.sprite = jtpk
+            self.stackable = True
             self.can_equip = True
             self.equip_location = "back"
             self.use_animation = [f"{jtpk}", f"{e1}{jtpk}", f"{e2}{e1}{jtpk}", f"{e3}{e2}{e1}{jtpk}", f"{e2}{e1} {jtpk}"]
@@ -163,11 +174,11 @@ class Item:
         can_equip = getattr(item, "can_equip", False)
         can_consume = getattr(item, "can_consume", False)
         if can_equip:
-            player_input = input(f"\nPress Q to equip the {item.name} to your {item.equip_location}, or E to add to inventory. ").lower()
+            player_input = input(f"\nPress Q to equip the {item.name} to your {item.equip_location}, or E to add to inventory. Press I to view and manage inventory. ").lower()
             utils.move_cursor_up()
             utils.erase_line()
         elif can_consume:
-            player_input = input(f"\nPress Spacebar to {item.consumption_type}, the {item.name} now, or E to add to inventory. ").lower()
+            player_input = input(f"\nPress Spacebar to {item.consumption_type}, the {item.name} now, or E to add to inventory. Press I to view and manage inventory. ").lower()
             utils.move_cursor_up()
             utils.erase_line()
 
@@ -181,4 +192,18 @@ class Item:
 
     @classmethod
     def add_item_to_inventory(cls, item):
-        INVENTORY.append(item)
+        item_name = item.name
+        item_found = False
+        if item.stackable:
+            for existing_item in INVENTORY:
+                if existing_item.name == item_name:
+                    existing_item.quantity += 1
+                    item_found = True
+            if not item_found:
+                INVENTORY.append(item)
+        else:
+            INVENTORY.append(item)
+
+    @classmethod
+    def item_and_quantity_dict():
+        ...
