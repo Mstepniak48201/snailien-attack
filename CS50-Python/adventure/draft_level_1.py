@@ -4,6 +4,7 @@ import utils
 from player import Player
 from item import Item 
 from global_vars import INVENTORY
+from grid import display_inventory
 
 def main():
     player = Player("Michael")
@@ -17,6 +18,7 @@ def level_1(player):
     current_steps_taken = 0
     total_steps_taken = 0
     items_picked_up = 0
+    inventory_is_open = False
     while steps_to_take > 0:
         # Hide cursor.
         print("\x1b[?25l", end="")
@@ -25,7 +27,7 @@ def level_1(player):
         if steps_to_take == 1:
             steps_to_take = random.randrange(10, 26, 3)
             
-        # Set level lenght and item chance of spawning
+        # Set level length and item chance of spawning
         if current_steps_taken > 10 and total_steps_taken < 76:
             item_chance = [0, 0, 0, 0, 0, 0, 0, 0, True]
             if random.choice(item_chance):
@@ -34,15 +36,18 @@ def level_1(player):
                 Item.spawn_item(total_steps_taken, item)
                 player_input = Item.item_decision(item)
                 current_steps_taken = 0
-                if player_input == "i":
-                    inventory_grid_dict = item_and_quantity_dict()
                 if player_input == "e":
                     item.add_item_to_inventory(item)
+                if player_input == "i":
+                    inventory_is_open = True
+                    item_and_quantity = item.item_and_quantity_dict()
+                    display_inventory(item_and_quantity, 3, 3)
 
-        utils.move_element_forward(total_steps_taken, "_", player_sprite, 0.25)
-        total_steps_taken += 1
-        current_steps_taken += 1
-        steps_to_take -= 1
+        if not inventory_is_open:
+            utils.move_element_forward(total_steps_taken, "_", player_sprite, 0.25)
+            total_steps_taken += 1
+            current_steps_taken += 1
+            steps_to_take -= 1
 
         if total_steps_taken == 80:
             utils.show_cursor()

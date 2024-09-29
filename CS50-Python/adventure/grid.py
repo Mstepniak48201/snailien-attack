@@ -1,4 +1,5 @@
 import math
+import utils
 
 def main():
     inventory = {
@@ -11,7 +12,11 @@ def main():
 
     display_inventory(inventory, 3, 3)
 
+def close_inventory(rows_columns_dict):
+    ...
+
 def display_inventory(inventory, rows, columns):
+    utils.insert_newline()
     max_key = get_max_key(inventory)
     cell_width = len(max_key) + 4
     item_list = get_item_list(inventory, rows, columns)
@@ -106,7 +111,9 @@ def cell_content(sublist, cell_width, columns):
                 print(cell_item, end=" ")
     return item_list 
 
-# Export this function
+
+
+# Export function
 def get_capacity(inventory, rows, columns):
     total_capacity = int(rows) * int(columns)
     full_slots = len(inventory.items())

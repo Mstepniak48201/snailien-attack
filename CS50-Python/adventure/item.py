@@ -205,5 +205,12 @@ class Item:
             INVENTORY.append(item)
 
     @classmethod
-    def item_and_quantity_dict():
-        ...
+    def item_and_quantity_dict(cls):
+        result_dict = {}
+        for item in INVENTORY:
+            name = item.name
+            quantity = item.quantity
+            result_dict[name] = quantity
+
+        return result_dict
+

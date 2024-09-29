@@ -1,7 +1,7 @@
 import sys
 import time
 
-def insert_newline(n):
+def insert_newline(n=1):
     newline = "\n"
     return print(f"{n * newline}")
 
