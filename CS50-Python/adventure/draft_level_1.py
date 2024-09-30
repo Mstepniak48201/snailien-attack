@@ -1,10 +1,10 @@
 import sys
 import random
 import utils
+import inventory_ui
 from player import Player
 from item import Item 
 from global_vars import INVENTORY
-from grid import display_inventory
 
 def main():
     player = Player("Michael")
@@ -41,7 +41,12 @@ def level_1(player):
                 if player_input == "i":
                     inventory_is_open = True
                     item_and_quantity = item.item_and_quantity_dict()
-                    display_inventory(item_and_quantity, 3, 3)
+                    inventory_grid = inventory_ui.display_inventory(item_and_quantity, 3, 3)
+                    player_input = inventory_ui.inventory_decision()
+                    if player_input == "i":
+                        inventory_ui.close_inventory(inventory_grid)
+                        inventory_is_open = False
+                        player_input = Item.item_decision(item)
 
         if not inventory_is_open:
             utils.move_element_forward(total_steps_taken, "_", player_sprite, 0.25)
@@ -51,6 +56,8 @@ def level_1(player):
 
         if total_steps_taken == 80:
             utils.show_cursor()
+            item_and_quantity = item.item_and_quantity_dict()
+            inventory_grid = inventory_ui.display_inventory(item_and_quantity, 3, 3)
             return True
 
 def pick_up_item(item):        

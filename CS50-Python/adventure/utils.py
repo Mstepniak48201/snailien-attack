@@ -35,7 +35,7 @@ def erase_line():
     sys.stdout.flush()
 
 def erase_lines(n=1):
-    for line in range(n):
+    for line in range(int(n)):
         sys.stdout.write("\x1b[2K")
         sys.stdout.write(f"\x1b[1A")
         sys.stdout.flush()

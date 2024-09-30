@@ -1,5 +1,6 @@
 import math
 import utils
+import time
 
 def main():
     inventory = {
@@ -10,10 +11,13 @@ def main():
         "rope": 10
     }
 
-    display_inventory(inventory, 3, 3)
+    inventory_display = display_inventory(inventory, 3, 3)
 
-def close_inventory(rows_columns_dict):
-    ...
+    time.sleep(2)
+
+    close_inventory(inventory_display)
+
+    
 
 def display_inventory(inventory, rows, columns):
     utils.insert_newline()
@@ -24,6 +28,7 @@ def display_inventory(inventory, rows, columns):
     item_rows = get_content_rows(item_list, rows)
     quantity_rows = get_content_rows(quantity_list, rows)
     grid(item_rows, quantity_rows, cell_width)
+    return {"rows": rows, "columns": columns}
     
 def grid(item_rows, quantity_rows, cell_width):
     cell_top = f" {cell_width * '_'} "
@@ -38,6 +43,14 @@ def grid(item_rows, quantity_rows, cell_width):
         cell_content(item_sublist, cell_width, columns)
         cell_content(quantity_sublist, cell_width, columns)
         cell_borders(cell_bottom, cell_width, columns)
+
+def inventory_decision():
+    user_input = input(f"To discard an item, press D + the name of the item. Press I to close inventory. ")
+    return user_input.lower()
+
+def close_inventory(row_column_dict):
+    row_height = int(row_column_dict["rows"]) * 5 + 3
+    utils.erase_lines(row_height)
 
 def get_max_key(inventory):
     key_list = []
