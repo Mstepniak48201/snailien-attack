@@ -40,9 +40,11 @@ def level_1(player):
                     item.add_item_to_inventory(item)
                 if player_input == "i":
                     game_is_paused = True
-                    item_and_quantity = item.item_and_quantity_dict()
-                    inventory_grid = inventory_ui.display_inventory(item_and_quantity, 3, 3)
+                    update_inventory = item.update_inventory()
+                    inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
                     player_input = inventory_ui.inventory_decision()
+                    if player_input == "d":
+                        discard_item = item.discard_item()
                     if player_input == "i":
                         inventory_ui.close_inventory(inventory_grid)
                         player_input = Item.item_decision(item)
@@ -56,13 +58,9 @@ def level_1(player):
 
         if total_steps_taken == 80:
             utils.show_cursor()
-            item_and_quantity = item.item_and_quantity_dict()
-            inventory_grid = inventory_ui.display_inventory(item_and_quantity, 3, 3)
+            update_inventory = item.update_inventory()
+            inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
             return True
-
-def pick_up_item(item):        
-    item_dict = item.__dict__
-    name = item_dict["name"]
 
     
 if __name__ == "__main__":
