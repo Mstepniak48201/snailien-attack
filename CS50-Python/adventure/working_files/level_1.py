@@ -28,7 +28,12 @@ def level_1(player):
 
         # Determine whether an item will spawn.
         if get_item_chance(current_steps_taken, total_steps_taken):
-            print("item spawned")
+            current_steps_taken = 0
+            item = Item.generate_item()
+            item.spawn_item(total_steps_taken, item)
+            player_input = Item.item_decision(item)
+            inventory_action = inventory_ui.inventory_decision(player_input)
+            
 
         # Move player.
         if not game_is_paused:
