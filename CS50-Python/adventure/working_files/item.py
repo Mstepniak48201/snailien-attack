@@ -212,11 +212,6 @@ class Item:
             utils.erase_line()
             time.sleep(0.1)
             player_input = input("Enter the item you want to discard. Press K to cancel. ").lower()
-            if player_input == "k":
-                utils.move_cursor_up()
-                utils.erase_line()
-                time.sleep(0.1)
-                return player_input
             for item in INVENTORY:
                 if item.name == player_input:
                     INVENTORY.remove(item)
@@ -224,10 +219,17 @@ class Item:
                     utils.erase_line()
                     time.sleep(0.1)
                     return player_input
-            utils.move_cursor_up()
-            utils.erase_line()
-            time.sleep(0.1)
-            player_input = input(f"{player_input} is not in your inventory! Enter the item you want to discard. Press K to cancel. ")
+            if player_input == "k":
+                utils.move_cursor_up()
+                utils.erase_line()
+                time.sleep(0.1)
+                return player_input
+            else:
+                utils.move_cursor_up()
+                utils.erase_line()
+                time.sleep(0.1)
+                print(f"{player_input} is not in your inventory!")
+                time.sleep(.5)
 
     @classmethod
     def update_inventory(cls):

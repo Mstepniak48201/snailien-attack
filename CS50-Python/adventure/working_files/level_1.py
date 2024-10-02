@@ -31,9 +31,12 @@ def level_1(player):
             current_steps_taken = 0
             item = Item.generate_item()
             item.spawn_item(total_steps_taken, item)
+            game_is_paused = True
             player_input = Item.item_decision(item)
-            inventory_action = inventory_ui.inventory_decision(player_input)
             
+            # Abstract into function.
+            handle_input(player_input, item)
+            game_is_paused = False
 
         # Move player.
         if not game_is_paused:
@@ -46,11 +49,28 @@ def level_1(player):
             utils.show_cursor()
             return True
 
+def handle_input(player_input, item):
+    inventory_is_open = False
+    if player_input == "e":
+        item.add_item_to_inventory(item)
+    elif player_input == "i":
+        inventory_is_open = False
+        while inventory_is_open:
+            # Display inventory
+            update_inventory = item.update_inventory()
+            inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
+            # Two possible inputs: D (discard), I (close inventory)
+            inventory_decision = inventory_ui.inventory_decision
+            if inventory_decision == "d":
+                discard_choice = item.discard_item()
+            elif inventory_decision == "i":
+                inventory_ui.close_inventory(inventory_grid)
+                inventory_is_open = False
+
 def get_item_chance(current_steps_taken, total_steps_taken):
     item_chance = [0, 0, 0, 0, 0, 0, 0, 0, True]
     if current_steps_taken > 10 and total_steps_taken < 76:
         if random.choice(item_chance):
-            print(f"current steps taken: {current_steps_taken}, total steps taken: {total_steps_taken}")
             return True
     return False
 
