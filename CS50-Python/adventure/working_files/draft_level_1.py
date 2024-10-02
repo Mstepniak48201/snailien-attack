@@ -11,6 +11,39 @@ def main():
     level_one = level_1(player)
     print(INVENTORY)
 
+def level(player):
+    player_sprite = player.sprite
+    utils.insert_newline(2)
+    steps_to_take = random.randrange(10, 26, 3)
+    current_steps_taken = 0
+    total_steps_taken = 0
+    item_chance = [0, 0, 0, 0, 0, 0, 0, 0, True]
+    game_is_paused = False
+
+    while steps_to_take > 0:
+        utils.hide_cursor()
+
+        # Reset steps at top of loop.
+        if steps_to_take == 1:
+            steps_to_take = random.randrange(10, 26, 3)
+        
+        # Set condition for continued gameplay.
+        if current_steps_taken > 10  and total_steps_taken < 76:
+
+            # Randomly spawn items.
+            if random.choice(item_chance):
+                item = Item()
+                Item.spawn_item(total_steps_taken, item)
+                
+                # Pause game while interacting with inventory UI.
+                while True:
+                    game_is_paused = True
+                    player_input = Item.item_decision(item)
+                    current_steps_taken = 0
+
+
+
+
 def level_1(player):
     player_sprite = player.sprite
     utils.insert_newline(2)
@@ -29,7 +62,6 @@ def level_1(player):
             
         # Set level length and item chance of spawning
         if current_steps_taken > 10 and total_steps_taken < 76:
-            item_chance = [0, 0, 0, 0, 0, 0, 0, 0, True]
             if random.choice(item_chance):
                 # Spawn item
                 item = Item.generate_item()
@@ -45,10 +77,27 @@ def level_1(player):
                     player_input = inventory_ui.inventory_decision()
                     if player_input == "d":
                         discard_item = item.discard_item()
+                        if discard_item == "k":
+                            inventory_ui.close_inventory(inventory_grid)
+                        game_is_paused = False
                     if player_input == "i":
                         inventory_ui.close_inventory(inventory_grid)
                         player_input = Item.item_decision(item)
                         game_is_paused = False
+
+        def handle_item_input(player_input, item):
+            if player_input == "e":
+                item.add_item_to_inventory(item)
+            elif player_input == "i":
+                update_inventory = item.update_inventory()
+                inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
+                player_input = inventory_ui.inventory_decision()
+                if player_input == "d":
+                    discard_item = item.discard_item()
+                    if discard_item == "k":
+                        inventory_ui.close_inventory(inventory_grid)
+
+
 
         if not game_is_paused:
             utils.move_element_forward(total_steps_taken, "_", player_sprite, 0.25)

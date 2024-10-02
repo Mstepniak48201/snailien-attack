@@ -175,7 +175,7 @@ class Item:
         can_equip = getattr(item, "can_equip", False)
         can_consume = getattr(item, "can_consume", False)
         if can_equip:
-            player_input = input(f"\nPress Q to equip the {item.name} to your {item.equip_location}, or E to add to inventory. Press I to view and manage inventory. ").lower()
+            player_input = input(f"\nPress Q to equip the {item.name} to your {item.equip_location}, or E to add to inventory. Press I to view and manage inventory, or K to return to game. ").lower()
             utils.move_cursor_up()
             utils.erase_line()
         elif can_consume:
@@ -207,10 +207,10 @@ class Item:
 
     @classmethod
     def discard_item(cls):
-        utils.move_cursor_up()
-        utils.erase_line()
-        time.sleep(0.1)
         while True:
+            utils.move_cursor_up()
+            utils.erase_line()
+            time.sleep(0.1)
             player_input = input("Enter the item you want to discard. Press K to cancel. ").lower()
             if player_input == "k":
                 utils.move_cursor_up()
@@ -228,7 +228,6 @@ class Item:
             utils.erase_line()
             time.sleep(0.1)
             player_input = input(f"{player_input} is not in your inventory! Enter the item you want to discard. Press K to cancel. ")
-
 
     @classmethod
     def update_inventory(cls):
