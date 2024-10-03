@@ -28,25 +28,26 @@ def level_1(player):
             steps_to_take = random.randrange(10, 26, 3)
             
         # Set level length and item chance of spawning
-        if current_steps_taken > 10 and total_steps_taken < 76:
-            item_chance = [0, 0, 0, 0, 0, 0, 0, 0, True]
-            if random.choice(item_chance):
+        #if current_steps_taken > 10 and total_steps_taken < 76:
+        #    item_chance = [0, 0, 0, 0, 0, 0, 0, 0, True]
+        #    if random.choice(item_chance):
                 # Spawn item
-                item = Item.generate_item()
-                Item.spawn_item(total_steps_taken, item)
-                player_input = Item.item_decision(item)
-                current_steps_taken = 0
-                if player_input == "e":
-                    item.add_item_to_inventory(item)
+        if get_item_chance(current_steps_taken, total_steps_taken):
+            item = Item.generate_item()
+            Item.spawn_item(total_steps_taken, item)
+            player_input = Item.item_decision(item)
+            current_steps_taken = 0
+            if player_input == "e":
+                item.add_item_to_inventory(item)
+            if player_input == "i":
+                game_is_paused = True
+                item_and_quantity = item.item_and_quantity_dict()
+                inventory_grid = inventory_ui.display_inventory(item_and_quantity, 3, 3)
+                player_input = inventory_ui.inventory_decision()
                 if player_input == "i":
-                    game_is_paused = True
-                    item_and_quantity = item.item_and_quantity_dict()
-                    inventory_grid = inventory_ui.display_inventory(item_and_quantity, 3, 3)
-                    player_input = inventory_ui.inventory_decision()
-                    if player_input == "i":
-                        inventory_ui.close_inventory(inventory_grid)
-                        player_input = Item.item_decision(item)
-                        game_is_paused = False
+                    inventory_ui.close_inventory(inventory_grid)
+                    player_input = Item.item_decision(item)
+                    game_is_paused = False
 
         if not game_is_paused:
             utils.move_element_forward(total_steps_taken, "_", player_sprite, 0.25)
@@ -59,6 +60,13 @@ def level_1(player):
             item_and_quantity = item.item_and_quantity_dict()
             inventory_grid = inventory_ui.display_inventory(item_and_quantity, 3, 3)
             return True
+
+def get_item_chance(current_steps_taken, total_steps_taken):
+    item_chance = [0, 0, 0, 0, 0, 0, 0, 0, True]
+    if current_steps_taken > 10 and total_steps_taken < 76:
+        if random.choice(item_chance):
+            return True
+    return False
 
 def pick_up_item(item):        
     item_dict = item.__dict__

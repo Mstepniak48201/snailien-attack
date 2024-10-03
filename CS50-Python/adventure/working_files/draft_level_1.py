@@ -11,39 +11,6 @@ def main():
     level_one = level_1(player)
     print(INVENTORY)
 
-def level(player):
-    player_sprite = player.sprite
-    utils.insert_newline(2)
-    steps_to_take = random.randrange(10, 26, 3)
-    current_steps_taken = 0
-    total_steps_taken = 0
-    item_chance = [0, 0, 0, 0, 0, 0, 0, 0, True]
-    game_is_paused = False
-
-    while steps_to_take > 0:
-        utils.hide_cursor()
-
-        # Reset steps at top of loop.
-        if steps_to_take == 1:
-            steps_to_take = random.randrange(10, 26, 3)
-        
-        # Set condition for continued gameplay.
-        if current_steps_taken > 10  and total_steps_taken < 76:
-
-            # Randomly spawn items.
-            if random.choice(item_chance):
-                item = Item()
-                Item.spawn_item(total_steps_taken, item)
-                
-                # Pause game while interacting with inventory UI.
-                while True:
-                    game_is_paused = True
-                    player_input = Item.item_decision(item)
-                    current_steps_taken = 0
-
-
-
-
 def level_1(player):
     player_sprite = player.sprite
     utils.insert_newline(2)
