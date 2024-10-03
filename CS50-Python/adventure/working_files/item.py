@@ -176,9 +176,15 @@ class Item:
         utils.erase_line()
 
     @classmethod
-    def item_decision(cls, item, inventory=INVENTORY): 
+    def item_decision(cls, item, can_pick_up, inventory=INVENTORY): 
         can_equip = getattr(item, "can_equip", False)
         can_consume = getattr(item, "can_consume", False)
+        if not can_pick_up:
+            player_input = input(f"\nPress I to view and manage inventory, or K to return to game. ")
+            utils.move_cursor_up()
+            utils.erase_line()
+            utils.move_cursor_up()
+            return player_input
         if can_equip:
             player_input = input(f"\nPress Q to equip the {item.name} to your {item.equip_location}, or E to add to inventory. Press I to view and manage inventory, or K to return to game. ").lower()
             utils.move_cursor_up()

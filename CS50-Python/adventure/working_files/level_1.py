@@ -38,16 +38,19 @@ def level_1(player):
             can_pick_up = True
             while game_is_paused:
                 # Get player input.
-                player_input = Item.item_decision(item)
-                if player_input == "e" and not can_pick_up:
-                    player_input = Item.no_item_decision()
+                player_input = Item.item_decision(item, can_pick_up)
 
                 item_picked_up = handle_input(player_input, item, can_pick_up)
-                can_pick_up = item_picked_up
+
+                if item_picked_up:
+                    can_pick_up = False
+
+
 
                 # Resume game.
                 if player_input == "k":
                     game_is_paused = False
+                    item_picked_up = False
                     can_pick_up = True
 
         # Move player.
@@ -64,14 +67,11 @@ def level_1(player):
             return True
 
 
-
 def handle_input(player_input, item, can_pick_up):
     inventory_is_open = False
-    if player_input == "e" and not can_pick_up:
-        return False
     if player_input == "e":
         item.add_item_to_inventory(item)
-        return False
+        return True
     elif player_input == "i":
         inventory_is_open = True
         while inventory_is_open:
@@ -86,7 +86,6 @@ def handle_input(player_input, item, can_pick_up):
             elif inventory_decision == "i":
                 inventory_ui.close_inventory(inventory_grid)
                 inventory_is_open = False
-    return True
 
 def get_item_chance(current_steps_taken, total_steps_taken):
     item_chance = [0, 0, 0, 0, 0, 0, 0, 0, True]
