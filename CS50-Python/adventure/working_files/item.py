@@ -179,7 +179,7 @@ class Item:
             utils.move_cursor_up()
             utils.erase_line()
         elif can_consume:
-            player_input = input(f"\nPress Spacebar to {item.consumption_type}, the {item.name} now, or E to add to inventory. Press I to view and manage inventory. ").lower()
+            player_input = input(f"\nPress Spacebar to {item.consumption_type}, the {item.name} now, or E to add to inventory. Press I to view and manage inventory, or K to return to game. ").lower()
             utils.move_cursor_up()
             utils.erase_line()
 

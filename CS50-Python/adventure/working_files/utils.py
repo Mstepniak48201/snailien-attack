@@ -21,6 +21,10 @@ def move_cursor_up(n=1):
     sys.stdout.write(f"\x1b[{n}A")
     sys.stdout.flush()
 
+def move_cursor_down(n=1):
+    sys.stdout.write(f"\x1b[{n}B")
+    sys.stdout.flush()
+
 def overwrite_line(text):
     # Clear line and move cursor to start.
     # \x1b is the ANSI escape sequence to take control of the terminal.

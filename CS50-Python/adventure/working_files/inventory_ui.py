@@ -61,6 +61,11 @@ def close_inventory(row_column_dict):
     row_height = int(row_column_dict["rows"]) * 5 + 3
     utils.erase_lines(row_height)
 
+def refresh_inventory(row_column_dict):
+    row_height = int(row_column_dict["rows"]) * 5 + 2
+    utils.erase_lines(row_height)
+
+
 def get_max_key(inventory):
     if len(inventory) == 0:
         return "░░░"

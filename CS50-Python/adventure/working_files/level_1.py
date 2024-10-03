@@ -10,6 +10,9 @@ def main():
     player = Player("Michael")
     level_one = level_1(player)
 
+
+### TOMORROW'S BUG!!! PLAYER CAN ADD ITEM AS MANY TIMES AS THEY WANT!!!
+
 def level_1(player):
     player_sprite = player.sprite
     utils.insert_newline(2)
@@ -32,11 +35,22 @@ def level_1(player):
             item = Item.generate_item()
             item.spawn_item(total_steps_taken, item)
             game_is_paused = True
-            player_input = Item.item_decision(item)
-            
-            # Abstract into function.
-            handle_input(player_input, item)
-            game_is_paused = False
+            while game_is_paused:
+                # Desired Steps:
+                # Item Spawns, prompt player for decision.
+                # Player Views Inventory / Inventory opens.
+                # Player chooses to discard item.
+                # Player chooses item to discard.
+  
+
+                player_input = Item.item_decision(item)
+             
+                
+                handle_input(player_input, item)
+
+                # Resume game.
+                if player_input == "k":
+                    game_is_paused = False
 
         # Move player.
         if not game_is_paused:
@@ -47,6 +61,8 @@ def level_1(player):
 
         if total_steps_taken == 80:
             utils.show_cursor()
+            update_inventory = item.update_inventory()
+            inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
             return True
 
 def handle_input(player_input, item):
@@ -54,15 +70,16 @@ def handle_input(player_input, item):
     if player_input == "e":
         item.add_item_to_inventory(item)
     elif player_input == "i":
-        inventory_is_open = False
+        inventory_is_open = True
         while inventory_is_open:
             # Display inventory
             update_inventory = item.update_inventory()
             inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
             # Two possible inputs: D (discard), I (close inventory)
-            inventory_decision = inventory_ui.inventory_decision
+            inventory_decision = inventory_ui.inventory_decision()
             if inventory_decision == "d":
                 discard_choice = item.discard_item()
+                inventory_ui.refresh_inventory(inventory_grid)
             elif inventory_decision == "i":
                 inventory_ui.close_inventory(inventory_grid)
                 inventory_is_open = False
