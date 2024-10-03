@@ -169,6 +169,11 @@ class Item:
         sys.stdout.write(f"\r{total_steps_taken * '_'}🌀\x1b[1;92m<\x1b[0m___{item.sprite}\x1b[?25l")
         return item
 
+    @classmethod
+    def no_item_decision(cls):
+        player_input = input(f"\nThere is no item to pick up! Press I to view and manage inventory, or K to return to game. " ).lower()
+        utils.move_cursor_up()
+        utils.erase_line()
 
     @classmethod
     def item_decision(cls, item, inventory=INVENTORY): 
@@ -178,7 +183,7 @@ class Item:
             player_input = input(f"\nPress Q to equip the {item.name} to your {item.equip_location}, or E to add to inventory. Press I to view and manage inventory, or K to return to game. ").lower()
             utils.move_cursor_up()
             utils.erase_line()
-        elif can_consume:
+        if can_consume:
             player_input = input(f"\nPress Spacebar to {item.consumption_type}, the {item.name} now, or E to add to inventory. Press I to view and manage inventory, or K to return to game. ").lower()
             utils.move_cursor_up()
             utils.erase_line()

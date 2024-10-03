@@ -35,22 +35,20 @@ def level_1(player):
             item = Item.generate_item()
             item.spawn_item(total_steps_taken, item)
             game_is_paused = True
+            can_pick_up = True
             while game_is_paused:
-                # Desired Steps:
-                # Item Spawns, prompt player for decision.
-                # Player Views Inventory / Inventory opens.
-                # Player chooses to discard item.
-                # Player chooses item to discard.
-  
-
+                # Get player input.
                 player_input = Item.item_decision(item)
-             
-                
-                handle_input(player_input, item)
+                if player_input == "e" and not can_pick_up:
+                    player_input = Item.no_item_decision()
+
+                item_picked_up = handle_input(player_input, item, can_pick_up)
+                can_pick_up = item_picked_up
 
                 # Resume game.
                 if player_input == "k":
                     game_is_paused = False
+                    can_pick_up = True
 
         # Move player.
         if not game_is_paused:
@@ -65,10 +63,15 @@ def level_1(player):
             inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
             return True
 
-def handle_input(player_input, item):
+
+
+def handle_input(player_input, item, can_pick_up):
     inventory_is_open = False
+    if player_input == "e" and not can_pick_up:
+        return False
     if player_input == "e":
         item.add_item_to_inventory(item)
+        return False
     elif player_input == "i":
         inventory_is_open = True
         while inventory_is_open:
@@ -83,6 +86,7 @@ def handle_input(player_input, item):
             elif inventory_decision == "i":
                 inventory_ui.close_inventory(inventory_grid)
                 inventory_is_open = False
+    return True
 
 def get_item_chance(current_steps_taken, total_steps_taken):
     item_chance = [0, 0, 0, 0, 0, 0, 0, 0, True]
