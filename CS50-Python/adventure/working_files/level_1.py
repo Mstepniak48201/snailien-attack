@@ -10,9 +10,6 @@ def main():
     player = Player("Michael")
     level_one = level_1(player)
 
-
-### TOMORROW'S BUG!!! PLAYER CAN ADD ITEM AS MANY TIMES AS THEY WANT!!!
-
 def level_1(player):
     player_sprite = player.sprite
     utils.insert_newline(2)
@@ -39,13 +36,9 @@ def level_1(player):
             while game_is_paused:
                 # Get player input.
                 player_input = Item.item_decision(item, can_pick_up)
-
                 item_picked_up = handle_input(player_input, item, can_pick_up)
-
                 if item_picked_up:
                     can_pick_up = False
-
-
 
                 # Resume game.
                 if player_input == "k":
@@ -69,7 +62,7 @@ def level_1(player):
 
 def handle_input(player_input, item, can_pick_up):
     inventory_is_open = False
-    if player_input == "e":
+    if player_input == "e" and can_pick_up:
         item.add_item_to_inventory(item)
         return True
     elif player_input == "i":
