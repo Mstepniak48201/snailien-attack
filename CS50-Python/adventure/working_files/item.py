@@ -127,39 +127,59 @@ class Item:
             print(f"This {self.name} is broken")
             name = self.repaired_name
         return Item(name)
+    
+    @classmethod
+    def get_rank(cls):
+        # Ranks: required items to achieve rank.
+        rank_1 = ["sword", "pick", "apple"]
+        item_names = []
+        result = []
+        # Get names of inventory items.
+        for item in INVENTORY:
+            item_names.append(item.name)
+
+        # Check rank against existing items.
+
+
+
+
+        
+
+            
+
 
     @classmethod
-    def generate_item(cls, level=1):
+    def generate_item(cls, rank=1):
         # Initial 
-        if level == 1:
+        if rank == 1:
             items = ["sword", "pick", "apple"]
             name = random.choice(items)
             return Item(name)
-        elif level == 2:
+        elif rank == 2:
             items = ["apple", "wrench", "healing potion"]
             name = random.choice(items)
             return Item(name)
-        elif level == 3:
+        elif rank == 3:
             return Item("fireball potion")
-        elif level == 4:
+        elif rank == 4:
             items = ["broken sword", "broken pick" ]
             name = random.choice(items)
             return Item(name)
-        elif level == 5:
+        elif rank == 5:
             return Item("magic boots")
-        elif level == 6:
+        elif rank == 6:
             return Item("apple")
-        elif level == 7:
+        elif rank == 7:
             return Item("laser")
-        elif level == 8:
+        elif rank == 8:
             items = ["apple", "healing potion", "speed potion"]
             name = random.choice(items)
             return Item(name)
-        elif level == 9:
+        elif rank == 9:
             return Item("speed potion")
-        elif level == 10:
+        elif rank == 10:
             return Item("jetpack")
-        elif level == 11:
+        elif rank == 11:
             items = ["apple", "healing potion"]
             name = random.choice(items)
             return Item(name)
@@ -193,7 +213,6 @@ class Item:
             player_input = input(f"\nPress Spacebar to {item.consumption_type}, the {item.name} now, or E to add to inventory. Press I to view and manage inventory, or K to return to game. ").lower()
             utils.move_cursor_up()
             utils.erase_line()
-
         if player_input == "e" and len(inventory) >= 9:
             utils.move_cursor_up()
             utils.erase_line()
