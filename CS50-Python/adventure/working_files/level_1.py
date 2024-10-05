@@ -59,7 +59,6 @@ def level_1(player):
             inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
             return True
 
-
 def handle_input(player_input, item, can_pick_up):
     inventory_is_open = False
     if player_input == "e" and can_pick_up:

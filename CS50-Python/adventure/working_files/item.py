@@ -137,49 +137,46 @@ class Item:
         # Get names of inventory items.
         for item in INVENTORY:
             item_names.append(item.name)
-
         # Check rank against existing items.
-
-
-
-
-        
-
-            
-
+        for name in name_list:
+            if name in rank_1:
+                result.append(True)
+            else:
+                result.append(False)
+        if all(result):
 
     @classmethod
-    def generate_item(cls, rank=1):
+    def generate_item(cls, rank=0):
         # Initial 
-        if rank == 1:
+        if rank == 0:
             items = ["sword", "pick", "apple"]
             name = random.choice(items)
             return Item(name)
-        elif rank == 2:
+        elif rank == 1:
             items = ["apple", "wrench", "healing potion"]
             name = random.choice(items)
             return Item(name)
-        elif rank == 3:
+        elif rank == 2:
             return Item("fireball potion")
-        elif rank == 4:
+        elif rank == 3:
             items = ["broken sword", "broken pick" ]
             name = random.choice(items)
             return Item(name)
-        elif rank == 5:
+        elif rank == 4:
             return Item("magic boots")
-        elif rank == 6:
+        elif rank == 5:
             return Item("apple")
-        elif rank == 7:
+        elif rank == 6:
             return Item("laser")
-        elif rank == 8:
+        elif rank == 7:
             items = ["apple", "healing potion", "speed potion"]
             name = random.choice(items)
             return Item(name)
-        elif rank == 9:
+        elif rank == 8:
             return Item("speed potion")
-        elif rank == 10:
+        elif rank == 9:
             return Item("jetpack")
-        elif rank == 11:
+        elif rank == 10:
             items = ["apple", "healing potion"]
             name = random.choice(items)
             return Item(name)
