@@ -128,6 +128,7 @@ class Item:
             name = self.repaired_name
         return Item(name)
     
+    """
     @classmethod
     def get_rank(cls):
         # Ranks: required items to achieve rank.
@@ -144,6 +145,7 @@ class Item:
             else:
                 result.append(False)
         if all(result):
+    """
 
     @classmethod
     def generate_item(cls, rank=0):
