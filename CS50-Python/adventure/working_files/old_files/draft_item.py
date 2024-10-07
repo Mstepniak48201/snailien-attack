@@ -12,7 +12,7 @@ with open("items.json", "r") as file:
     item_data = json.load(file)
 
 class Item:
-    def __init__(self, name, strength=0, data=item_data):
+    def __init__(self, name, strength=0 data=item_data):
         # Handle Broken Items
         if name.startswith("broken "):
             i = name.find(" ") + 1
@@ -30,15 +30,92 @@ class Item:
             effect_list = [p1, p2, p3]
             return effect_list
 
-        # Use JSON instead
-        for item in data:
-            if item["name"] == self.name:
-                for key, value in item.items():
-                    if key != "name":
-                        self.__dict__[key] = value
-                    break
-
-       
+        if self.name == "pick":
+            self.sprite = "\x1b[1;97m‾\x1b[1;91m/\x1b[1;97m¬\x1b[0m"
+            self.stackable = False
+            self.can_equip = True
+            self.equip_location = "hand"
+            self.category = "tool"
+            self.durability = 6
+            self.item_damage = 5
+            self.attack_damage = 2
+        elif self.name == "sword":
+            self.sprite = "\x1b[1;91m~{\x1b[1;97m=>\x1b[0m"
+            self.stackable = False
+            self.can_equip = True
+            self.equip_location = "hand"
+            self.category = "weapon"
+            self.durability = 7
+            self.attack_damage = random.randrange(4, 7)
+        elif self.name == "apple":
+            self.sprite = "🍏"
+            self.stackable = True
+            self.can_consume = True
+            self.consumption_type = "eat"
+            self.category = "food"
+            self.heal = 3
+        elif self.name == "wrench":
+            self.sprite = "\x1b[1;94m¬\x1b[1;97mμ\x1b[0m"
+            self.stackable = False
+            self.can_equip = True
+            self.equip_location = "hand"
+            self.category = "tool"
+            self.repair = random.randrange(3, 7)
+        elif self.name == "healing potion":
+            self.sprite = "\x1b[1;97m⛣ \x1b[0m"
+            self.stackable = True
+            self.can_consume = True
+            self.consumption_type = "use"
+            self.category = "potion"            
+            self.heal = random.randrange(2, 7)
+        elif self.name == "fireball potion":
+            self.sprite = "\x1b[1;93m⛣ \x1b[0m"
+            self.stackable = True
+            self.can_equip = True
+            self.equip_location = "hand"
+            self.category = "potion"
+            self.attack_damage = random.randrange(5, 10)
+        elif self.name == "magic boots":
+            shoe1 = "\x1b[1;96m▚\x1b[0m"
+            shoe2 = "\x1b[1;97m▞\x1b[0m"
+            self.sprite = "\x1b[1;96m▟\x1b[1;97m◟\x1b[0m"
+            self.stackable = False
+            self.can_equip = True
+            self.equip_location = "feet"
+            self.animation = [f"{p1}{shoe1}",f"{p2}{shoe2}", f"{p3}" ]
+            self.category = "magic"
+            self.wearable = [True, "feet"]
+            self.can_jump = True
+            self.jump_chance = random.randrange(4, 15)
+            self.speed = 2
+        elif self.name == "laser":
+            self.sprite = "\x1b[1;96m]\x1b[1;93m=\x1b[1;96m¤\x1b[0m"
+            self.stackable = False
+            self.can_equip = True
+            self.equip_location = "hand"
+            self.category = "weapon"
+            self.attack_damage = random.randrange(6, 9)
+        elif self.name == "speed potion":
+            self.sprite = "\x1b[1;92m⛣ \x1b[0m"
+            self.stackable = True
+            self.can_consume = True
+            self.consumption_type = "use"
+            self.category = "potion"
+            self.speed = 3
+        elif self.name == "jetpack":
+            jtpk = "\x1b[1;97m⟃⟄\x1b[0m"
+            e1 = "\x1b[1;91m◦\x1b[0m"
+            e2 = "\x1b[1;93m◦\x1b[0m"
+            e3 = "\x1b[1;97m◦\x1b[0m"
+            self.sprite = jtpk
+            self.stackable = True
+            self.can_equip = True
+            self.equip_location = "back"
+            self.use_animation = [f"{jtpk}", f"{e1}{jtpk}", f"{e2}{e1}{jtpk}", f"{e3}{e2}{e1}{jtpk}", f"{e2}{e1} {jtpk}"]
+            self.category = "magic"
+            self.wearable = True
+            self.can_fly = True
+            self.speed = 3
 
 # Animations?
 #  ٜ٠٠.
@@ -48,16 +125,7 @@ class Item:
     # Add __repr__ method. Best practices are to represent the data
     # visually as close to the way it is entered as possible
     def __repr__(self):
-        # return f"{self.__class__.__name__}({self.__dict__})"
-        attributes = ", ".join(f"{key}={value!r}" for key, value in self.__dict__.items())
-        return f"Item({attributes})"
-    
-
-
-    # Make sure the dict update works.
-    def __repr__(self):
-        attributes = ", ".join(f"{key}={value!r}" for key, value in self.__dict__.items())
-        return f"TestClass({attributes})"
+        return f"{self.__class__.__name__}({self.__dict__})"
 
     # To call repair_item():
     # new_item = broken_item.repair_item()
@@ -207,7 +275,3 @@ class Item:
             quantity = item.quantity
             display_list.append({name: quantity})
         return display_list
-
-
-test_item = Item("sword")
-print(test_item)
