@@ -2,12 +2,17 @@ import sys
 import random
 import time
 import utils
+import json
 from global_vars import INVENTORY, INVENTORY_DICT
 
 # Todo: flower box input, indicate when item picked up.
 
+with open("items.json", "r") as file:
+    # json.load converts JSON to Python list of dictionaries
+    item_data = json.load(file)
+
 class Item:
-    def __init__(self, name, strength=0):
+    def __init__(self, name, strength=0 data=item_data):
         # Handle Broken Items
         if name.startswith("broken "):
             i = name.find(" ") + 1
