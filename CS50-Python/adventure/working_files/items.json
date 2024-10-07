@@ -1,0 +1,11 @@
+[{
+            "name": "pick",
+            "sprite": "\x1b[1;97m‾\x1b[1;91m/\x1b[1;97m¬\x1b[0m",
+            "stackable": false,
+            "can_equip": true,
+            "equip_location": "hand",
+            "category": "tool",
+            "durability": : 6,
+            "item_damage": 5,
+            "attack_damage": 2
+}]

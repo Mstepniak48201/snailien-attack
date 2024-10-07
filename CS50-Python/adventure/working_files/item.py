@@ -4,6 +4,8 @@ import time
 import utils
 from global_vars import INVENTORY, INVENTORY_DICT
 
+# Todo: flower box input, indicate when item picked up.
+
 class Item:
     def __init__(self, name, strength=0):
         # Handle Broken Items
@@ -23,6 +25,7 @@ class Item:
             effect_list = [p1, p2, p3]
             return effect_list
 
+        # Use JSON instead
         if self.name == "pick":
             self.sprite = "\x1b[1;97m‾\x1b[1;91m/\x1b[1;97m¬\x1b[0m"
             self.stackable = False
