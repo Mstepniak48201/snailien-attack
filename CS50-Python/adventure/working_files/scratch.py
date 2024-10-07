@@ -12,7 +12,13 @@ class TestClass:
 
         for item in data:
             if item["name"] == self.name:
-                self.__dict__.update({key: value for key, value in item.items() if key != "name"})
+                # The code below works, and I'm keeping it for reference, but I'm refactoring it.
+                # self.__dict__.update({key: value for key, value in item.items() if key != "name"})
+
+                # Refactored code for readability:
+                for key, value in item.items():
+                    if key != "name":
+                        self.__dict__[key] = value
                 break
 
     # Make sure the dict update works.
