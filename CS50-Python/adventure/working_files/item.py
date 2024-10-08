@@ -13,17 +13,17 @@ with open("items.json", "r") as file:
 
 class Item:
     def __init__(self, name, strength=0, data=item_data):
+        self.name = name 
+        self.quantity = 1
+        attributes = {}
+
         # Handle Broken Items
         if name.startswith("broken "):
             i = name.find(" ") + 1
             self.repaired_name = name[i:]
             self.is_broken = True
 
-        # Todo: Handle functions that aren't valid JSON syntax.
         # Attack damage may be handled separately, in which case the function will be written there.
-
-        self.name = name 
-        self.quantity = 1
 
         # Fill in ANSII escape characters that aren't valid JSON syntax.
         match name:
@@ -58,14 +58,25 @@ class Item:
             p3 = "\x1b[1;95m.\x1b[0m"
             effect_list = [p1, p2, p3]
             return effect_list
-
-        # Use JSON instead
+        
+        # Handle attributes that depend on a random value.
+        # When attribute is a random value, the JSON value will be a list in this format:
+        # ["random", val_1, val_2]
+        # The randrange is added to the attributes dictionary. 
         for item in data:
             if item["name"] == self.name:
                 for key, value in item.items():
-                    if key != "name":
-                        self.__dict__[key] = value
+                    if isinstance(value, list) and value[0] == "random":
+                        start = value[1]
+                        end = value[2]
+                        attributes[key] = random.randrange(start, end)
+                    elif key != "name":
+                        attributes[key] = value
                 break
+
+        # Copy attributes dictionary entries to self.
+        for key, value in attributes.items():
+            self.__dict__[key] = value
 
 # Animations?
 #  ٜ٠٠.
@@ -208,3 +219,6 @@ class Item:
             quantity = item.quantity
             display_list.append({name: quantity})
         return display_list
+
+sword = Item("sword")
+print(sword)
