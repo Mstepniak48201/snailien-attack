@@ -51,7 +51,7 @@ class TestClass:
                         attributes[key] = value
                 break
 
-        for key, value in attributes:
+        for key, value in attributes.items():
             self.__dict__[key] = value
 
     def __repr__(self):
