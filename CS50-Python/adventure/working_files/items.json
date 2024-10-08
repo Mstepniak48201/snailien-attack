@@ -1,7 +1,6 @@
 [
   {
     "name": "pick",
-    "sprite": "\x1b[1;97m‾\x1b[1;91m//\x1b[1;97m¬\x1b[0m",
     "stackable": false,
     "can_equip": true,
     "equip_location": "hand",
@@ -11,8 +10,7 @@
     "attack_damage": 2
   },
   {
-    "name": "sword":
-    "sprite": "\x1b[1;91m~{\x1b[1;97m:>\x1b[0m",
+    "name": "sword",
     "stackable": false,
     "can_equip": true,
     "equip_location": "hand",
@@ -22,7 +20,6 @@
   },            
   {
     "name": "apple",
-    "sprite": "🍏",
     "stackable": true,
     "can_consume": true, "consumption_type":  "eat",
     "category": "food",
@@ -30,16 +27,14 @@
   },
   {
     "name": "wrench",
-    "sprite": "\x1b[1;94m¬\x1b[1;97mμ\x1b[0m",
     "stackable": false,
     "can_equip": true,
-    ""equip_location": "hand",
+    "equip_location": "hand",
     "category": "tool",
     "repair": ["random", 3, 7]
   },
   {
     "name": "healing potion",
-    "sprite": "\x1b[1;97m⛣ \x1b[0m",
     "stackable": true,
     "can_consume": true,
     "consumption_type": "use",
@@ -48,18 +43,14 @@
   },
   {
     "name": "fireball potion",
-    "sprite": "\x1b[1;93m⛣ \x1b[0m",
     "stackable": true,
     "can_equip": true,
-    ""equip_location": "hand",
+    "equip_location": "hand",
     "category": "potion",
     "attack_damage": ["random", 5, 10]
   },
   {
     "name": "magic boots",
-    "shoe1": "\x1b[1;96m▚\x1b[0m",
-    "shoe2": "\x1b[1;97m▞\x1b[0m",
-    "sprite": "\x1b[1;96m▟\x1b[1;97m◟\x1b[0m",
     "stackable": false,
     "can_equip": true,
     "equip_location": "feet",
@@ -72,33 +63,25 @@
   },
   {
     "name": "laser",
-    "sprite": "\x1b[1;96m]\x1b[1;93m\x1b[1;96m¤\x1b[0m",
     "stackable": false,
     "can_equip": true,
     "equip_location": "hand",
     "category": "weapon",
     "attack_damage": ["random", 6, 9],
     "name": "speed potion",
-    "sprite": "\x1b[1;92m⛣ \x1b[0m",
-    "stackable": true,
-    "can_consume": true,
-    "consumption_type": "use",
-    "category": "potion",
-    "speed": 3
+    "stackable": false,
+    "category": "weapon"
   },
   {
     "name": "jetpack",
-    "jtpk": "\x1b[1;97m⟃⟄\x1b[0m",
-    "e1": "\x1b[1;91m◦\x1b[0m",
-    "e2": "\x1b[1;93m◦\x1b[0m",
-    "e3": "\x1b[1;97m◦\x1b[0m",
     "sprite": "jtpk",
     "stackable": true,
     "can_equip": true,
-    ""equip_location": "back", 
+    "equip_location": "back", 
     "use_animation": ["f_string", "{jtpk}", "{e1}{jtpk}", "{e2}{e1}{jtpk}", "{e3}{e2}{e1}{jtpk}", "{e2}{e1} {jtpk}"],
     "category": "magic",
     "wearable": true,
     "can_fly": true,
     "speed": 3
   }
+]

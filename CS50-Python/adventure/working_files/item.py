@@ -19,8 +19,37 @@ class Item:
             self.repaired_name = name[i:]
             self.is_broken = True
 
+        # Todo: Handle functions that aren't valid JSON syntax.
+        # Attack damage may be handled separately, in which case the function will be written there.
+
         self.name = name 
         self.quantity = 1
+
+        # Fill in ANSII escape characters that aren't valid JSON syntax.
+        match name:
+            case "pick": 
+                self.sprite = "\x1b[1;97m‾\x1b[1;91m/\x1b[1;97m¬\x1b[0m"
+            case "sword":
+                self.sprite = "\x1b[1;91m~{\x1b[1;97m=>\x1b[0m" 
+            case "apple":
+                self.sprite = "🍏"
+            case "wrench":
+                self.sprite = "\x1b[1;94m¬\x1b[1;97mμ\x1b[0m"
+            case "healing potion":
+                self.sprite = "\x1b[1;97m⍙\x1b[0m"
+            case "fireball potion":                 
+                self.sprite = "\x1b[1;93m⍙\x1b[0m"
+            case "magic boots":
+                self.sprite = "\x1b[1;96m▟\x1b[1;97m◟\x1b[0m"
+                self.shoe_1 = "\x1b[1;96m▚\x1b[0m"
+                self.shoe_2 = "\x1b[1;97m▞\x1b[0m"
+            case "laser":
+                self.sprite = "\x1b[1;96m]\x1b[1;93m\x1b[1;96m¤\x1b[0m"
+            case "jetpack":
+                self.sprite = "\x1b[1;97m⟃⟄\x1b[0m"
+                self.effect_1 = "\x1b[1;91m◦\x1b[0m"
+                self.effect_2 = "\x1b[1;93m◦\x1b[0m"
+                self.effect_3 = "\x1b[1;97m◦\x1b[0m"
 
         # Set Attributes by name
         def particle_effect(i=0):
@@ -36,9 +65,7 @@ class Item:
                 for key, value in item.items():
                     if key != "name":
                         self.__dict__[key] = value
-                    break
-
-       
+                break
 
 # Animations?
 #  ٜ٠٠.
@@ -51,13 +78,6 @@ class Item:
         # return f"{self.__class__.__name__}({self.__dict__})"
         attributes = ", ".join(f"{key}={value!r}" for key, value in self.__dict__.items())
         return f"Item({attributes})"
-    
-
-
-    # Make sure the dict update works.
-    def __repr__(self):
-        attributes = ", ".join(f"{key}={value!r}" for key, value in self.__dict__.items())
-        return f"TestClass({attributes})"
 
     # To call repair_item():
     # new_item = broken_item.repair_item()
@@ -65,26 +85,7 @@ class Item:
         if self.is_broken == True:
             print(f"This {self.name} is broken")
             name = self.repaired_name
-        return Item(name)
-    
-    """
-    @classmethod
-    def get_rank(cls):
-        # Ranks: required items to achieve rank.
-        rank_1 = ["sword", "pick", "apple"]
-        item_names = []
-        result = []
-        # Get names of inventory items.
-        for item in INVENTORY:
-            item_names.append(item.name)
-        # Check rank against existing items.
-        for name in name_list:
-            if name in rank_1:
-                result.append(True)
-            else:
-                result.append(False)
-        if all(result):
-    """
+        return Item(name)    
 
     @classmethod
     def generate_item(cls, rank=0):
@@ -207,7 +208,3 @@ class Item:
             quantity = item.quantity
             display_list.append({name: quantity})
         return display_list
-
-
-test_item = Item("sword")
-print(test_item)
