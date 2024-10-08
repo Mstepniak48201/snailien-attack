@@ -219,6 +219,3 @@ class Item:
             quantity = item.quantity
             display_list.append({name: quantity})
         return display_list
-
-sword = Item("sword")
-print(sword)
