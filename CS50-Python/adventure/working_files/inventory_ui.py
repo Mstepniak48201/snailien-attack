@@ -57,6 +57,7 @@ def inventory_decision():
     user_input = input(f"To discard an item, press D. Press I to close inventory. ").lower()
     if user_input == "d" or user_input == "i":
         return user_input
+    return False
 
 def close_inventory(row_column_dict):
     row_height = int(row_column_dict["rows"]) * 5 + 3

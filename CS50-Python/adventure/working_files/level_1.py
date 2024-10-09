@@ -61,55 +61,31 @@ def level_1(player):
 
 def handle_input(player_input, item, can_pick_up):
     inventory_is_open = False
+    inventory_grid = None
     if player_input == "i":
         inventory_is_open = True
         while inventory_is_open:
-            # Display inventory
-            update_inventory = item.update_inventory()
-            inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
-            # Two possible inputs: D (discard), I (close inventory)
+            # At the top of the loop, create a list item to pas to .display_inventory().
+            update_inventory = item.update_inventory() 
+            if inventory_grid:
+                inventory_ui.refresh_inventory(inventory_grid)                    
+                inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
+            else:
+                inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
             inventory_decision = inventory_ui.inventory_decision()
-            if inventory_decision == "d":
-                discard_choice = item.discard_item()
-                inventory_ui.refresh_inventory(inventory_grid)
-            elif inventory_decision == "i":
-                inventory_ui.close_inventory(inventory_grid)
-                inventory_is_open = False
-    if player_input == "e":
-        if can_pick_up and not inventory_is_open:
-            item.add_item_to_inventory(item)
-            return True
-        else:
-            pass
-        
+            if inventory_decision:
+                if inventory_decision == "d":
+                    discard_choice = item.discard_item()
+                elif inventory_decision == "i":
+                    inventory_ui.close_inventory(inventory_grid)
+                    inventory_is_open = False
+            else:
+                utils.erase_line()
+                utils.move_cursor_up()
 
-
-"""
-def handle_input(player_input, item, can_pick_up):
-    inventory_is_open = False
-
-    # Handle "e" inputs so as not to cause an error or open an extra inventory_ui
-    if player_input == "e":
-        if can_pick_up and not inventory_is_open:
-            item.add_item_to_inventory(item)
-            return True
-        else:
-            pass
-    elif player_input == "i":
-        inventory_is_open = True
-        while inventory_is_open:
-            # Display inventory
-            update_inventory = item.update_inventory()
-            inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
-            # Two possible inputs: D (discard), I (close inventory)
-            inventory_decision = inventory_ui.inventory_decision()
-            if inventory_decision == "d":
-                discard_choice = item.discard_item()
-                inventory_ui.refresh_inventory(inventory_grid)
-            elif inventory_decision == "i":
-                inventory_ui.close_inventory(inventory_grid)
-                inventory_is_open = False
-"""
+    elif player_input == "e" and can_pick_up:
+        item.add_item_to_inventory(item)
+        return True
 
 def get_item_chance(current_steps_taken, total_steps_taken):
     item_chance = [0, 0, 0, 0, 0, 0, 0, 0, True]
@@ -120,5 +96,3 @@ def get_item_chance(current_steps_taken, total_steps_taken):
 
 if __name__ == "__main__":
     main()
-
-
