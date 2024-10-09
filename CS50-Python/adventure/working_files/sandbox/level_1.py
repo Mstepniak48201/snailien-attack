@@ -35,6 +35,7 @@ def level_1(player):
             can_pick_up = True
             while game_is_paused:
                 # Get player input.
+                check_pickup = check_can_pick_up(can_pick_up)
                 player_input = Item.item_decision(item, can_pick_up)
                 item_picked_up = handle_input(player_input, item, can_pick_up)
                 if item_picked_up:
@@ -58,6 +59,10 @@ def level_1(player):
             update_inventory = item.update_inventory()
             inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
             return True
+
+def check_can_pick_up(can_pick_up):
+    if can_pick_up = False:
+        print("cannot pick up")
 
 def handle_input(player_input, item, can_pick_up):
     inventory_is_open = False
