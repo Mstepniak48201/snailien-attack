@@ -12,14 +12,34 @@ def main():
 
 def level_1(player):
     player_sprite = player.sprite
-    utils.insert_newline(3)
+    utils.insert_newline(9)
     steps_to_take = random.randrange(10, 26, 3)
     current_steps_taken = 0
     total_steps_taken = 0
     game_is_paused = False
-    new_lines = 45
-    new_line = "🟨"
-    print(f"{new_lines * new_line}")
+
+
+    blocks = 45
+    block = "🟨"
+
+    stone = "🔲"
+
+    utils.move_cursor_up(3)
+    utils.move_cursor_right(76)
+    print(f"{stone * 4}")
+    
+    utils.move_cursor_right(76)
+    print(f"{stone}   {stone}{stone}")
+
+    utils.move_cursor_right(76)
+    print(f"{stone}   {stone}{stone}")
+
+    print(f"{block * blocks}")
+
+    
+    display_position(total_steps_taken)
+
+    # Move cursor back into gameplay position
     utils.move_cursor_up(2)
 
     # while loop to continue gameplay on current line
@@ -67,6 +87,19 @@ def level_1(player):
             inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
             return True
 
+def display_position(total_steps_taken):
+    position = int(total_steps_taken)
+    utils.move_cursor_up(6)
+    print(f"\r{position}", end="")
+    utils.move_cursor_down(5)
+
+     
+    """
+     ____    
+    | 60 |
+     ‾‾‾‾
+    """
+
 def handle_input(player_input, item, can_pick_up):
     inventory_is_open = False
     inventory_grid = None
@@ -97,7 +130,7 @@ def handle_input(player_input, item, can_pick_up):
 
 def get_item_chance(current_steps_taken, total_steps_taken):
     item_chance = [0, 0, 0, 0, 0, 0, 0, 0, True]
-    if current_steps_taken > 10 and total_steps_taken < 76:
+    if current_steps_taken > 10 and total_steps_taken < 72:
         if random.choice(item_chance):
             return True
     return False

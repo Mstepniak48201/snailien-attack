@@ -16,6 +16,14 @@ def hide_cursor():
 def show_cursor():
     sys.stdout.write("\x1b[?25h")
 
+def move_cursor_right(n=1):
+    sys.stdout.write(f"\x1b[{n}C")
+    sys.stdout.flush()
+
+def move_cursor_left(n=1):
+    sys.stdout.write(f"\x1b[{n}D")
+    sys.stdout.flush()
+
 def move_cursor_up(n=1):
     #ANSI escape code to move cursor up n lines
     sys.stdout.write(f"\x1b[{n}A")
