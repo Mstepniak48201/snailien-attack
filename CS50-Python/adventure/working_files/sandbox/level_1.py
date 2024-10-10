@@ -11,40 +11,41 @@ def main():
     level_one = level_1(player)
 
 def level_1(player):
+    # The problem for updating the sprite is here, as it is outside of the loop!
     player_sprite = player.sprite
     utils.insert_newline(9)
     steps_to_take = random.randrange(10, 26, 3)
     current_steps_taken = 0
     total_steps_taken = 0
     game_is_paused = False
-
-
-    blocks = 45
     block = "🟨"
-
     stone = "🔲"
 
     utils.move_cursor_up(3)
-    utils.move_cursor_right(76)
+    utils.move_cursor_right(80)
     print(f"{stone * 4}")
     
-    utils.move_cursor_right(76)
+    utils.move_cursor_right(80)
     print(f"{stone}   {stone}{stone}")
 
-    utils.move_cursor_right(76)
+    utils.move_cursor_right(80)
     print(f"{stone}   {stone}{stone}")
 
-    print(f"{block * blocks}")
-
-    
-    display_position(total_steps_taken)
+    # Print terrain
+    level_1_terrain = get_level_1_terrain("🟨", 45)
+    display_level_1_terrain(level_1_terrain)
 
     # Move cursor back into gameplay position
     utils.move_cursor_up(2)
 
     # while loop to continue gameplay on current line
     while steps_to_take > 0:
+        display_position(total_steps_taken)
         utils.hide_cursor()
+
+        # Pause Game if at end of level.
+        if total_steps_taken > 75:
+            game_is_paused == True
 
         # Reset steps to take at top of loop.
         if steps_to_take == 1:
@@ -71,27 +72,48 @@ def level_1(player):
                     utils.move_cursor_up(2)
                     item_picked_up = False
                     can_pick_up = True
+        
 
 
         # Move player.
         if not game_is_paused:
-            utils.move_element_forward(total_steps_taken, "_", player_sprite, 0.25)
+            utils.move_element_forward(total_steps_taken, "_", player.sprite, 0.25)
             total_steps_taken += 1
             current_steps_taken += 1
             steps_to_take -= 1
 
 
-        if total_steps_taken == 80:
-            utils.show_cursor()
-            update_inventory = item.update_inventory()
-            inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
-            return True
+#        if total_steps_taken == 80:
+#            utils.show_cursor()
+#            update_inventory = item.update_inventory()
+#            inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
+#            return True
+
+
+def get_level_1_terrain(block, length):
+    terrain_list = []
+    for _ in range(int(length)):
+        terrain_list.append(block)
+    return terrain_list
+
+def display_level_1_terrain(level_1_terrain):
+    terrain = "".join(level_1_terrain)
+    print(terrain)
 
 def display_position(total_steps_taken):
     position = int(total_steps_taken)
+    
+    # Save current cursor position.
+    print("\x1b[s", end="")
+
+    # Counter display position.
     utils.move_cursor_up(6)
+
+    # Print the counter and overwrite the same line
     print(f"\r{position}", end="")
-    utils.move_cursor_down(5)
+
+    # Restore saved cursor position (back to player movement area)
+    print("\x1b[u", end="")
 
      
     """
