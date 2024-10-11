@@ -78,7 +78,13 @@ def level_1(player):
 
         # Move player.
         if not game_is_paused:
-            utils.move_element_forward(total_steps_taken, player.slime_trail, player.sprite, 0.25)
+            if total_steps_taken >= 82:
+                sprite_83 = f"{stone}{stone}{player.sprite}"
+                sys.stdout.write(f"\r{(total_steps_taken - 2) * player.slime_trail}{sprite_83}{sprite_83}{player.sprite}")
+                sys.stdout.flush() 
+                time.sleep(float(sleep))
+            else:
+                utils.move_element_forward(total_steps_taken, player.slime_trail, player.sprite, 0.25)
             total_steps_taken += 1
             current_steps_taken += 1
             steps_to_take -= 1
