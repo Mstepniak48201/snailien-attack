@@ -3,6 +3,7 @@ class Player:
         self.name = name
         self.sprite = "🌀\x1b[1;92m<\x1b[0m"
         self.counter = 0
+        self.slime_trail = "\x1b[1;92m_\x1b[0m"
 
     def update_sprite(self, counter):
         self.counter = counter

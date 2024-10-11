@@ -19,17 +19,18 @@ def level_1(player):
     total_steps_taken = 0
     game_is_paused = False
     block = "🟨"
-    stone = "🔲"
+    stone_1 = "🔲"
+    stone = "\x1b[100m \x1b[0m"
 
     utils.move_cursor_up(3)
     utils.move_cursor_right(80)
-    print(f"{stone * 4}")
+    print(f"{stone_1}{stone * 3}{stone_1}")
     
     utils.move_cursor_right(80)
-    print(f"{stone}   {stone}{stone}")
+    print(f"{stone * 2}   {stone * 2}{stone_1}")
 
     utils.move_cursor_right(80)
-    print(f"{stone}   {stone}{stone}")
+    print(f"{stone * 2}   {stone * 2}{stone_1}")
 
     # Print terrain
     level_1_terrain = get_level_1_terrain("🟨", 45)
@@ -44,8 +45,8 @@ def level_1(player):
         utils.hide_cursor()
 
         # Pause Game if at end of level.
-        if total_steps_taken > 75:
-            game_is_paused == True
+        if total_steps_taken == 83:
+            game_is_paused = True
 
         # Reset steps to take at top of loop.
         if steps_to_take == 1:
@@ -55,7 +56,7 @@ def level_1(player):
         if get_item_chance(current_steps_taken, total_steps_taken):
             current_steps_taken = 0
             item = Item.generate_item()
-            item.spawn_item(total_steps_taken, item)
+            item.spawn_item(total_steps_taken, item, player.slime_trail)
             game_is_paused = True
             can_pick_up = True
             utils.move_cursor_down(2)
@@ -77,7 +78,7 @@ def level_1(player):
 
         # Move player.
         if not game_is_paused:
-            utils.move_element_forward(total_steps_taken, "_", player.sprite, 0.25)
+            utils.move_element_forward(total_steps_taken, player.slime_trail, player.sprite, 0.25)
             total_steps_taken += 1
             current_steps_taken += 1
             steps_to_take -= 1
