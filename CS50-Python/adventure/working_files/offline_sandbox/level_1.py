@@ -6,6 +6,10 @@ from player import Player
 from item import Item
 from global_vars import INVENTORY
 
+
+# Changes:
+# - Change "stone_1" to "brick."
+
 def main():
     player = Player("Michael")
     level_one = level_1(player)
@@ -18,19 +22,20 @@ def level_1(player):
     current_steps_taken = 0
     total_steps_taken = 0
     game_is_paused = False
+    
     block = "🟨"
-    stone_1 = "🔲"
+    brick = "🔲"
     stone = "\x1b[100m \x1b[0m"
 
     utils.move_cursor_up(3)
     utils.move_cursor_right(80)
-    print(f"{stone_1}{stone * 3}{stone_1}")
+    print(f"{brick}{stone * 3}{brick}")
     
     utils.move_cursor_right(80)
-    print(f"{stone * 2}   {stone * 2}{stone_1}")
+    print(f"{stone * 2}   {stone * 2}{brick}")
 
     utils.move_cursor_right(80)
-    print(f"{stone * 2}   {stone * 2}{stone_1}")
+    print(f"{stone * 2}   {stone * 2}{brick}")
 
     # Print terrain
     level_1_terrain = get_level_1_terrain("🟨", 45)
@@ -83,18 +88,6 @@ def level_1(player):
             current_steps_taken += 1
             steps_to_take -= 1
 
-#            if total_steps_taken >= 82:
-#                sprite_83 = f"{stone}{stone}{player.sprite}"
-#                sys.stdout.write(f"\r{(total_steps_taken - 2) * player.slime_trail}{sprite_83}{sprite_83}{player.sprite}")
-#                sys.stdout.flush() 
-#                time.sleep(float(sleep))
-#            else:
-#                utils.move_element_forward(total_steps_taken, player.slime_trail, player.sprite, 0.25)
-#            total_steps_taken += 1
-#            current_steps_taken += 1
-#            steps_to_take -= 1
-
-
         if total_steps_taken == 80:
             utils.show_cursor()
             update_inventory = item.update_inventory()
@@ -114,18 +107,34 @@ def display_level_1_terrain(level_1_terrain):
 
 def display_position(total_steps_taken):
     position = int(total_steps_taken)
-    
+
     # Save current cursor position.
     print("\x1b[s", end="")
 
     # Counter display position.
     utils.move_cursor_up(6)
-
+    
     # Print the counter and overwrite the same line
     print(f"\r{position}", end="")
 
     # Restore saved cursor position (back to player movement area)
     print("\x1b[u", end="")
+
+
+#def display_position(total_steps_taken):
+#    position = int(total_steps_taken)
+#    
+#    # Save current cursor position.
+#    print("\x1b[s", end="")
+#
+#    # Counter display position.
+#    utils.move_cursor_up(6)
+#
+#    # Print the counter and overwrite the same line
+#    print(f"\r{position}", end="")
+#
+#    # Restore saved cursor position (back to player movement area)
+#    print("\x1b[u", end="")
 
      
     """
