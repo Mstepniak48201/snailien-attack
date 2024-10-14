@@ -78,7 +78,8 @@ def level_1(player):
 
         # Move player.
         if not game_is_paused:
-            utils.move_element_forward(total_steps_taken, player.slime_trail, player.sprite, 0.25)
+            #utils.move_element_forward(total_steps_taken, player.slime_trail, player.sprite, sleep=0.25)
+            handle_player_exit(total_steps_taken, player.slime_trail, player.sprite)
             total_steps_taken += 1
             current_steps_taken += 1
             steps_to_take -= 1
@@ -95,12 +96,19 @@ def level_1(player):
 #            steps_to_take -= 1
 
 
-        if total_steps_taken == 80:
+        if total_steps_taken == 82:
             utils.show_cursor()
             update_inventory = item.update_inventory()
             inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
             return True
 
+def handle_player_exit(total_steps_taken, player_effect, player_sprite):
+    stone = "\x1b[100m \x1b[0m"
+    if total_steps_taken < 79:
+        utils.move_element_forward(total_steps_taken, player_effect, player_sprite, 0.25)
+    else:
+        player_sprite = f"{stone}{stone}{player_sprite}"
+        utils.move_element_forward(total_steps_taken, player_effect, player_sprite, 0.25)
 
 def get_level_1_terrain(block, length):
     terrain_list = []
