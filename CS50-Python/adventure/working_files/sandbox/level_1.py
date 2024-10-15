@@ -1,5 +1,6 @@
 import sys
 import random
+import time
 import utils
 import inventory_ui
 from player import Player
@@ -22,7 +23,17 @@ def level_1(player):
     stone_1 = "🔲"
     stone = "\x1b[100m \x1b[0m"
 
-    utils.move_cursor_up(3)
+    # Render Flag Down
+    utils.move_cursor_up(6)
+    utils.move_cursor_right(84)
+    print("▕")
+    utils.move_cursor_right(84)
+    print("▕")
+    utils.move_cursor_right(84)
+    print("▕\x1b[91m▶\x1b[0m")
+
+
+    # Render Castle
     utils.move_cursor_right(80)
     print(f"{stone_1}{stone * 3}{stone_1}")
     
@@ -85,6 +96,7 @@ def level_1(player):
             steps_to_take -= 1
 
         if total_steps_taken == 83:
+            run_up_the_flag()
             utils.show_cursor()
             update_inventory = item.update_inventory()
             inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
@@ -92,7 +104,6 @@ def level_1(player):
 
 def handle_player_exit(total_steps_taken, player_effect, player_sprite):
     stone = f"\x1b[100m{player_effect}\x1b[0m"
-
     if total_steps_taken < 78:
         utils.move_element_forward(total_steps_taken, player_effect, player_sprite, 0.25)
     elif total_steps_taken == 78:
@@ -126,6 +137,32 @@ def display_level_1_terrain(level_1_terrain):
     terrain = "".join(level_1_terrain)
     print(terrain)
 
+def run_up_the_flag():
+    utils.move_cursor_up(3)
+    space = " "
+    flag = f"\x1b[91m▶\x1b[0m"
+    pole = "▕"
+    # Start point
+    time.sleep(0.2)
+    # Erase start point flag.
+    utils.overwrite_line(f"{space * 84}{pole}")
+    # Move cursor up.
+    utils.move_cursor_up()
+    # Render flag at second point.
+    utils.overwrite_line(f"{space * 84}{pole}{flag}")
+    # Next point
+    time.sleep(0.2)
+    # Erase second point flag.
+    utils.overwrite_line(f"{space * 84}{pole}  ")
+    # Move cursor up.
+    utils.move_cursor_up()
+    # Render flag at third point.
+    utils.overwrite_line(f"{space * 84}{pole}{flag}")
+    
+
+    time.sleep(1)
+    utils.move_cursor_down(5)
+
 def display_position(total_steps_taken):
     position = int(total_steps_taken)
     
@@ -133,7 +170,7 @@ def display_position(total_steps_taken):
     print("\x1b[s", end="")
 
     # Counter display position.
-    utils.move_cursor_up(6)
+    utils.move_cursor_up(7)
 
     # Print the counter and overwrite the same line
     print(f"\r{position}", end="")
