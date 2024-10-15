@@ -84,31 +84,37 @@ def level_1(player):
             current_steps_taken += 1
             steps_to_take -= 1
 
-#            if total_steps_taken >= 82:
-#                sprite_83 = f"{stone}{stone}{player.sprite}"
-#                sys.stdout.write(f"\r{(total_steps_taken - 2) * player.slime_trail}{sprite_83}{sprite_83}{player.sprite}")
-#                sys.stdout.flush() 
-#                time.sleep(float(sleep))
-#            else:
-#                utils.move_element_forward(total_steps_taken, player.slime_trail, player.sprite, 0.25)
-#            total_steps_taken += 1
-#            current_steps_taken += 1
-#            steps_to_take -= 1
-
-
-        if total_steps_taken == 82:
+        if total_steps_taken == 83:
             utils.show_cursor()
             update_inventory = item.update_inventory()
             inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
             return True
 
 def handle_player_exit(total_steps_taken, player_effect, player_sprite):
-    stone = "\x1b[100m \x1b[0m"
-    if total_steps_taken < 79:
+    stone = f"\x1b[100m{player_effect}\x1b[0m"
+
+    if total_steps_taken < 78:
         utils.move_element_forward(total_steps_taken, player_effect, player_sprite, 0.25)
-    else:
+    elif total_steps_taken == 78:
+        player_sprite = f"🌀\x1b[100;1;92m<\x1b[0m"
+        utils.move_element_forward(total_steps_taken, player_effect, player_sprite, 0.25)
+    elif total_steps_taken == 79:
+        #player_sprite = f"\x1b[100m🌀\x1b[0m\x1b[1;92m<\x1b[0m"
+        player_sprite = f"\x1b[100m{player_sprite}\x1b[0m"
+        utils.move_element_forward(total_steps_taken, player_effect, player_sprite, 0.25)
+    elif total_steps_taken == 80:
         player_sprite = f"{stone}{stone}{player_sprite}"
         utils.move_element_forward(total_steps_taken, player_effect, player_sprite, 0.25)
+    elif total_steps_taken == 81:
+        player_sprite = f"{stone}{stone}{player_effect}🌀"
+        steps = int(total_steps_taken) - 1
+        utils.move_element_forward(steps, player_effect, player_sprite, 0.25)
+    elif total_steps_taken == 82:
+        exit_sprite = f"{stone}{stone}{player_effect * 3}"
+        steps = int(total_steps_taken) - 2
+        utils.move_element_forward(steps, player_effect, exit_sprite, 0.75)
+
+
 
 def get_level_1_terrain(block, length):
     terrain_list = []
