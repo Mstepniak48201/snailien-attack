@@ -4,6 +4,7 @@ import time
 import utils
 import inventory_ui
 from player import Player
+from flag import Flag
 from item import Item
 from global_vars import INVENTORY
 
@@ -12,7 +13,7 @@ def main():
     level_one = level_1(player)
 
 def level_1(player):
-    # The problem for updating the sprite is here, as it is outside of the loop!
+    flag = Flag()
     player_sprite = player.sprite
     utils.insert_newline(9)
     steps_to_take = random.randrange(10, 26, 3)
@@ -23,15 +24,7 @@ def level_1(player):
     stone_1 = "🔲"
     stone = "\x1b[100m \x1b[0m"
 
-    # Render Flag Down
-    utils.move_cursor_up(6)
-    utils.move_cursor_right(84)
-    print("▕")
-    utils.move_cursor_right(84)
-    print("▕")
-    utils.move_cursor_right(84)
-    print("▕\x1b[91m▶\x1b[0m")
-
+    flag.render_flag_down()
 
     # Render Castle
     utils.move_cursor_right(80)
@@ -44,8 +37,7 @@ def level_1(player):
     print(f"{stone * 2}   {stone * 2}{stone_1}")
 
     # Print terrain
-    level_1_terrain = get_level_1_terrain("🟨", 45)
-    display_level_1_terrain(level_1_terrain)
+    print(level_1_terrain("🟨", 45))
 
     # Move cursor back into gameplay position
     utils.move_cursor_up(2)
@@ -96,7 +88,7 @@ def level_1(player):
             steps_to_take -= 1
 
         if total_steps_taken == 83:
-            run_up_the_flag()
+            flag.run_up_the_flag()
             utils.show_cursor()
             update_inventory = item.update_inventory()
             inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
@@ -125,43 +117,16 @@ def handle_player_exit(total_steps_taken, player_effect, player_sprite):
         steps = int(total_steps_taken) - 2
         utils.move_element_forward(steps, player_effect, exit_sprite, 0.75)
 
-
-
-def get_level_1_terrain(block, length):
+def level_1_terrain(block, length):
     terrain_list = []
     for _ in range(int(length)):
         terrain_list.append(block)
-    return terrain_list
+    return "".join(terrain_list)
 
 def display_level_1_terrain(level_1_terrain):
     terrain = "".join(level_1_terrain)
     print(terrain)
 
-def run_up_the_flag():
-    utils.move_cursor_up(3)
-    space = " "
-    flag = f"\x1b[91m▶\x1b[0m"
-    pole = "▕"
-    # Start point
-    time.sleep(0.2)
-    # Erase start point flag.
-    utils.overwrite_line(f"{space * 84}{pole}")
-    # Move cursor up.
-    utils.move_cursor_up()
-    # Render flag at second point.
-    utils.overwrite_line(f"{space * 84}{pole}{flag}")
-    # Next point
-    time.sleep(0.2)
-    # Erase second point flag.
-    utils.overwrite_line(f"{space * 84}{pole}  ")
-    # Move cursor up.
-    utils.move_cursor_up()
-    # Render flag at third point.
-    utils.overwrite_line(f"{space * 84}{pole}{flag}")
-    
-
-    time.sleep(1)
-    utils.move_cursor_down(5)
 
 def display_position(total_steps_taken):
     position = int(total_steps_taken)
