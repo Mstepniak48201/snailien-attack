@@ -3,6 +3,7 @@ import random
 import time
 import utils
 import inventory_ui
+from ingame_ui import InGameUI
 from player import Player
 from flag import Flag
 from item import Item
@@ -13,7 +14,6 @@ def main():
     level_one = level_1(player)
 
 def level_1(player):
-    flag = Flag()
     player_sprite = player.sprite
     utils.insert_newline(9)
     steps_to_take = random.randrange(10, 26, 3)
@@ -23,7 +23,9 @@ def level_1(player):
     block = "🟨"
     brick = "🔲"
     stone = "\x1b[100m \x1b[0m"
+    flag = Flag()
 
+    # Render Flag
     flag.render_flag_down()
 
     # Render Castle
@@ -37,7 +39,8 @@ def level_1(player):
 
     # while loop to continue gameplay on current line
     while steps_to_take > 0:
-        display_position(total_steps_taken)
+        ingame_ui = InGameUI(total_steps_taken)
+        ingame_ui.display_position(total_steps_taken)
         utils.hide_cursor()
 
         # Pause Game if at end of level.
@@ -122,23 +125,6 @@ def level_1_terrain(block, length):
     for _ in range(int(length)):
         terrain_list.append(block)
     return "".join(terrain_list)
-
-
-def display_position(total_steps_taken):
-    position = int(total_steps_taken) 
-    # Save current cursor position.
-    print("\x1b[s", end="")
-    # Counter display position.
-    utils.move_cursor_up(7)
-    # Print the counter and overwrite the same line
-    print(f"\r{position}", end="")
-    # Restore saved cursor position (back to player movement area)
-    print("\x1b[u", end="") 
-    """
-     ____    
-    | 60 |
-     ‾‾‾‾
-    """
 
 def get_item_chance(current_steps_taken, total_steps_taken):
     item_chance = [0, 0, 0, 0, 0, 0, 0, 0, True]
