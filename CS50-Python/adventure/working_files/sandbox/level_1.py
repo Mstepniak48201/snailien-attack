@@ -76,7 +76,7 @@ def level_1(player):
         # Move player.
         if not game_is_paused:
             #utils.move_element_forward(total_steps_taken, player.slime_trail, player.sprite, sleep=0.25)
-            handle_player_exit(total_steps_taken, player.slime_trail, player.sprite)
+            player.handle_player_exit(total_steps_taken, player.slime_trail, player.sprite)
             total_steps_taken += 1
             current_steps_taken += 1
             steps_to_take -= 1
@@ -88,29 +88,6 @@ def level_1(player):
             update_inventory = item.update_inventory()
             inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
             return True
-
-def handle_player_exit(total_steps_taken, player_effect, player_sprite):
-    stone = f"\x1b[100m{player_effect}\x1b[0m"
-    if total_steps_taken < 78:
-        utils.move_element_forward(total_steps_taken, player_effect, player_sprite, 0.25)
-    elif total_steps_taken == 78:
-        player_sprite = f"🌀\x1b[100;1;92m<\x1b[0m"
-        utils.move_element_forward(total_steps_taken, player_effect, player_sprite, 0.25)
-    elif total_steps_taken == 79:
-        #player_sprite = f"\x1b[100m🌀\x1b[0m\x1b[1;92m<\x1b[0m"
-        player_sprite = f"\x1b[100m{player_sprite}\x1b[0m"
-        utils.move_element_forward(total_steps_taken, player_effect, player_sprite, 0.25)
-    elif total_steps_taken == 80:
-        player_sprite = f"{stone}{stone}{player_sprite}"
-        utils.move_element_forward(total_steps_taken, player_effect, player_sprite, 0.25)
-    elif total_steps_taken == 81:
-        player_sprite = f"{stone}{stone}{player_effect}🌀"
-        steps = int(total_steps_taken) - 1
-        utils.move_element_forward(steps, player_effect, player_sprite, 0.25)
-    elif total_steps_taken == 82:
-        exit_sprite = f"{stone}{stone}{player_effect * 3}"
-        steps = int(total_steps_taken) - 2
-        utils.move_element_forward(steps, player_effect, exit_sprite, 0.75)
 
 def render_castle(brick, stone):
     utils.move_cursor_right(80)
