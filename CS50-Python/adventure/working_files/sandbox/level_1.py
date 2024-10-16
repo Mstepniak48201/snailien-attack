@@ -21,23 +21,16 @@ def level_1(player):
     total_steps_taken = 0
     game_is_paused = False
     block = "🟨"
-    stone_1 = "🔲"
+    brick = "🔲"
     stone = "\x1b[100m \x1b[0m"
 
     flag.render_flag_down()
 
     # Render Castle
-    utils.move_cursor_right(80)
-    print(f"{stone_1}{stone * 3}{stone_1}")
-    
-    utils.move_cursor_right(80)
-    print(f"{stone * 2}   {stone * 2}{stone_1}")
-
-    utils.move_cursor_right(80)
-    print(f"{stone * 2}   {stone * 2}{stone_1}")
+    render_castle(brick, stone)
 
     # Print terrain
-    print(level_1_terrain("🟨", 45))
+    print(level_1_terrain(block, 45))
 
     # Move cursor back into gameplay position
     utils.move_cursor_up(2)
@@ -66,7 +59,7 @@ def level_1(player):
             while game_is_paused:
                 # Get player input.
                 player_input = Item.item_decision(item, can_pick_up)
-                item_picked_up = handle_input(player_input, item, can_pick_up)
+                item_picked_up = player.handle_input(player_input, item, can_pick_up)
                 if item_picked_up:
                     can_pick_up = False
 
@@ -76,8 +69,6 @@ def level_1(player):
                     utils.move_cursor_up(2)
                     item_picked_up = False
                     can_pick_up = True
-        
-
 
         # Move player.
         if not game_is_paused:
@@ -87,12 +78,21 @@ def level_1(player):
             current_steps_taken += 1
             steps_to_take -= 1
 
+        # End Level
         if total_steps_taken == 83:
             flag.run_up_the_flag()
             utils.show_cursor()
             update_inventory = item.update_inventory()
             inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
             return True
+
+def render_castle(brick, stone):
+    utils.move_cursor_right(80)
+    print(f"{brick}{stone * 3}{brick}") 
+    utils.move_cursor_right(80)
+    print(f"{stone * 2}   {stone * 2}{brick}")
+    utils.move_cursor_right(80)
+    print(f"{stone * 2}   {stone * 2}{brick}")
 
 def handle_player_exit(total_steps_taken, player_effect, player_sprite):
     stone = f"\x1b[100m{player_effect}\x1b[0m"
@@ -123,60 +123,22 @@ def level_1_terrain(block, length):
         terrain_list.append(block)
     return "".join(terrain_list)
 
-def display_level_1_terrain(level_1_terrain):
-    terrain = "".join(level_1_terrain)
-    print(terrain)
-
 
 def display_position(total_steps_taken):
-    position = int(total_steps_taken)
-    
+    position = int(total_steps_taken) 
     # Save current cursor position.
     print("\x1b[s", end="")
-
     # Counter display position.
     utils.move_cursor_up(7)
-
     # Print the counter and overwrite the same line
     print(f"\r{position}", end="")
-
     # Restore saved cursor position (back to player movement area)
-    print("\x1b[u", end="")
-
-     
+    print("\x1b[u", end="") 
     """
      ____    
     | 60 |
      ‾‾‾‾
     """
-
-def handle_input(player_input, item, can_pick_up):
-    inventory_is_open = False
-    inventory_grid = None
-    if player_input == "i":
-        inventory_is_open = True
-        while inventory_is_open:
-            # At the top of the loop, create a list item to pas to .display_inventory().
-            update_inventory = item.update_inventory() 
-            if inventory_grid:
-                inventory_ui.refresh_inventory(inventory_grid)                    
-                inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
-            else:
-                inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
-            inventory_decision = inventory_ui.inventory_decision()
-            if inventory_decision:
-                if inventory_decision == "d":
-                    discard_choice = item.discard_item()
-                elif inventory_decision == "i":
-                    inventory_ui.close_inventory(inventory_grid)
-                    inventory_is_open = False
-            else:
-                utils.erase_line()
-                utils.move_cursor_up()
-
-    elif player_input == "e" and can_pick_up:
-        item.add_item_to_inventory(item)
-        return True
 
 def get_item_chance(current_steps_taken, total_steps_taken):
     item_chance = [0, 0, 0, 0, 0, 0, 0, 0, True]
