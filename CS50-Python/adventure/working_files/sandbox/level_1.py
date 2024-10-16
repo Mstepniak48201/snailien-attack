@@ -89,14 +89,6 @@ def level_1(player):
             inventory_grid = inventory_ui.display_inventory(update_inventory, 3, 3)
             return True
 
-def render_castle(brick, stone):
-    utils.move_cursor_right(80)
-    print(f"{brick}{stone * 3}{brick}") 
-    utils.move_cursor_right(80)
-    print(f"{stone * 2}   {stone * 2}{brick}")
-    utils.move_cursor_right(80)
-    print(f"{stone * 2}   {stone * 2}{brick}")
-
 def handle_player_exit(total_steps_taken, player_effect, player_sprite):
     stone = f"\x1b[100m{player_effect}\x1b[0m"
     if total_steps_taken < 78:
@@ -119,6 +111,14 @@ def handle_player_exit(total_steps_taken, player_effect, player_sprite):
         exit_sprite = f"{stone}{stone}{player_effect * 3}"
         steps = int(total_steps_taken) - 2
         utils.move_element_forward(steps, player_effect, exit_sprite, 0.75)
+
+def render_castle(brick, stone):
+    utils.move_cursor_right(80)
+    print(f"{brick}{stone * 3}{brick}") 
+    utils.move_cursor_right(80)
+    print(f"{stone * 2}   {stone * 2}{brick}")
+    utils.move_cursor_right(80)
+    print(f"{stone * 2}   {stone * 2}{brick}")
 
 def level_1_terrain(block, length):
     terrain_list = []
