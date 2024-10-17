@@ -1,2 +1,0 @@
-INVENTORY = []
-INVENTORY_DICT = {}
