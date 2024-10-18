@@ -1,0 +1,2 @@
+INVENTORY = []
+INVENTORY_DICT = {}
