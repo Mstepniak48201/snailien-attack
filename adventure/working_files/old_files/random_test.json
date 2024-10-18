@@ -1,0 +1,20 @@
+[
+  {
+    "name": "foo",
+    "is_action": true,
+    "action_chance": ["random", 3, 6],
+    "description": "name = 'foo', is_action = True, action_chance = ['random', 3,6]"
+  },
+  {
+    "name": "bar",
+    "is_action": false,
+    "quantity": 1,
+    "description": "name = 'bar', is_action = False, quantity = 1"
+  },
+  {
+    "name": "baz",
+    "is_action": true,
+    "action_chance": ["random", 2, 10],
+    "description": "name = 'baz', is_action = True, action_chance = ['random', 2, 10]"
+  }
+]
