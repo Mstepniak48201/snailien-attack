@@ -1,0 +1,13 @@
+[
+  {
+    "name": "item one",
+    "quantity": 1,
+    "is_solid": true
+  },
+  {
+    "name": "item two",
+    "quantity": 2,
+    "is_liquid": "false",
+    "is_gas": "true"
+  }
+]
